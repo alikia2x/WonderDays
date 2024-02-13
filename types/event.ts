@@ -1,0 +1,9 @@
+type CountdownEvent = {
+    name: string;
+    calendar: string;
+    date: string;
+    repeat: string;
+    reminder: string[];
+    background: string;
+    border: string;
+};

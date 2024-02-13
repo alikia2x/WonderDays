@@ -28,6 +28,7 @@ export default {
                 250: "250ms",
             },
             height: {
+                26: "6.5rem",
                 70: "17.5rem",
                 82: "20.5rem",
                 86: "21.5rem",
@@ -55,6 +56,7 @@ export default {
                 168: "42rem",
             },
             spacing: {
+                18: "4.5rem",
                 42: "10.5rem",
             },
             inset: {

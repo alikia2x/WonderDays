@@ -5,3 +5,14 @@
 .icon path {
     stroke: white;
 }
+
+@font-face {
+    font-family: DDIN;
+    src: url(../fonts/D-DIN.otf);
+    font-weight: 400;
+}
+
+.darkMo{
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: .3s;
+}

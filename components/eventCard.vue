@@ -1,26 +1,70 @@
 <template>
-    <div :style="{ background: getBackgroundColor(), border: getBorderColor(), borderWidth: '0.4rem', borderLeftStyle: 'solid'}" >
+    <div :style="{ background: getColor().background, border: getColor().border, borderWidth: '0.4rem', borderLeftStyle: 'solid' }"
+        class="darkMo min-h-28 mb-7 relative pl-4 pb-4 pt-1 rounded-r-lg">
         <h2 class="text-2xl font-bold leading-10">{{ event.name }}</h2>
         <p class="text-gray-600 dark:text-gray-400">
             {{ nextDateString }}
         </p>
+        <!-- Indicators -->
         <div class="mt-2">
-            <Icon v-if="isRepeat" name="fa6-solid:repeat" />
-            <Icon v-if="hasReminder" name="fa6-solid:bell" />
+            <Icon class="mr-2" v-if="isRepeat" name="fa6-solid:repeat" />
+            <Icon class="mr-2" v-if="hasReminder" name="fa6-solid:bell" />
         </div>
-        <!-- 其他 event 相关的显示逻辑 -->
+        <!-- Relative time -->
+        <div
+            class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed w-1/4 lg:1/5 xl:w-1/6 min-w-32 top-0 right-0">
+            <div class="relative text-center flex flex-col w-full top-1/2 translate-y-[-50%]">
+                <!-- Number part -->
+                <label>
+                    <span class="sr-only">
+                        {{ getCardDate(event)[0] + getCardDate(event)[1] + (isFuture ? t('later') : t('ago')) }}
+                    </span>
+                    <span aria-hidden="true" class="ddin relative text-6xl">
+                        {{ getCardDate(event)[0] }}
+                    </span>
+                </label>
+
+                <!-- Unit part -->
+                <div class="relative text-base">
+                    <span aria-hidden="true" id="relativeTimeUnit">{{ getCardDate(event)[1] }}</span>
+                    <span>{{ t('space') }}</span>
+                    <span aria-hidden="true" id="relativeTimeWord" v-if="isFuture">{{ t('later') }}</span>
+                    <span aria-hidden="true" id="relativeTimeWord" v-else>{{ t('ago') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-0 h-full right-1/4 lg:right-[20%] xl:right-[16.667%] w-40">
+            <nuxt-icon v-if="event.sticker.includes('partyPopper')" name="party-popper" class="absolute bottom-0 text-9xl" filled></nuxt-icon>
+        </div>
     </div>
 </template>
 
 <style>
-.nuxt-icon svg{
-    fill: none !important;
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
+.nuxt-icon svg {
+    width: 1em;
+    height: 1em;
+    margin-bottom: 0em;
+    vertical-align: middle;
+}
+
+.ddin {
+    font-family: DDIN, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
 </style>
   
 <script>
-import { ref, watchEffect } from 'vue';
+import moment from 'moment';
 
 export default {
     props: {
@@ -35,87 +79,47 @@ export default {
             background: String,
             border: String,
         },
-        darkMode: Boolean,
     },
     setup(props) {
-        const backgroundPalette = ref(null);
-        const borderPalette = ref(null);
-        const localOptions = {
-            year: 'numeric',
-            month: 'short',
-            day: "numeric"
-        }
+        const backgroundPalette = inject('backgroundPlaette');
+        const borderPalette = inject('borderPlaette');
         const isRepeat = props.event.repeat != undefined;
         const hasReminder = props.event.reminder.length != 0;
+        const nextDate = getLatestRepeat(props.event);
         let nextDateString = "";
-        if (props.event.calendar=="gregorian"){
-            let fullDate = new Date();
-            fullDate = new Date(props.event.year, props.event.month - 1, props.event.day);
-            if (props.event.repeat!=undefined){
-                let repeatInterval = props.event.repeat.split(",")[0];
-                let repeatUnit = props.event.repeat.split(",")[1];
-                while(true){
-                    switch(repeatUnit){
-                        case "year":
-                            fullDate.setFullYear(fullDate.getFullYear()+parseInt(repeatInterval));
-                            break;
-                        case "month":
-                            fullDate.setMonth(fullDate.getMonth()+parseInt(repeatInterval));
-                            break;
-                        case "day":
-                            fullDate.setDate(fullDate.getDate()+parseInt(repeatInterval));
-                            break;
-                    }
-                    if(fullDate.getTime()>=Date.now()){
-                        break;
-                    }
-                }
-            }
-            nextDateString = fullDate.toLocaleDateString(undefined, localOptions);
+        if (nextDate) {
+            nextDateString = nextDate.format('ll');
         }
-        
-        // 定义调色板映射
-        const darkBackgroundPalette = {
-            blue: '#262A35',
-        };
-        const lightBackgroundPalette = {
-            blue: '#3498db',
-        };
-        const darkBorderPalette = {
-            blue: '#7F9DCD',
-        };
-        const lightBorderPalette = {
-            blue: '#3498db',
-        };
+        const isFuture = nextDate.isAfter(moment());
+        const { t } = useI18n({ useScope: 'local' });
 
-        // 监听深色模式的变化，更新调色板
-        watchEffect(() => {
-            backgroundPalette.value = props.darkMode ? darkBackgroundPalette : lightBackgroundPalette;
-            borderPalette.value = props.darkMode ? darkBorderPalette : lightBorderPalette;
-        });
 
-        const getBackgroundColor = () => {
-            return getColorFromPalette(props.event.background,"background");
-        };
-        const getBorderColor = () => {
-            return getColorFromPalette(props.event.border,"border");
-        };
-
-        const getColorFromPalette = (keyword, type) => {
-            if (backgroundPalette.value && backgroundPalette.value[keyword] || borderPalette.value && borderPalette.value[keyword]) {
-                return type === "background" ? backgroundPalette.value[keyword] : borderPalette.value[keyword];
-            } else {
-                return keyword; // 如果找不到映射，默认返回原值
+        const getColor = () => {
+            return {
+                "background": backgroundPalette.value[props.event.background],
+                "border": borderPalette.value[props.event.border]
             }
-        };
+        }
 
         return {
-            getBackgroundColor,
-            getBorderColor,
+            getColor,
             nextDateString,
             isRepeat,
-            hasReminder
+            isFuture,
+            hasReminder,
+            t
         };
     },
 };
 </script>
+
+<i18n lang="yaml">
+    en:
+        later: "later"
+        ago: "ago"
+        space: ' '
+    zh-CN:
+        later: "后"
+        ago: "前"
+        space: ''
+</i18n>

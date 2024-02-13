@@ -14,5 +14,14 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ['nuxt-icon']
+  modules: ['nuxt-icon', '@nuxtjs/i18n', 'nuxt-icons'],
+  i18n: {
+    vueI18n: '~/i18n/i18n.config.ts',
+  },
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+    }
+  }
 })

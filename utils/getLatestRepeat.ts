@@ -1,37 +1,29 @@
-type Event = {
-    name: string;
-    calendar: string;
-    year: number;
-    month: number;
-    day: number;
-    repeat: string;
-    reminder: string[];
-    background: string;
-    border: string;
-};
+import moment from "moment";
 
-export default function (e: Event) {
-    let fullDate = new Date();
+export default function (e: CountdownEvent) {
+    let fullDate = moment();
+    // TODO: create a uify function for mutil-calendar transforming
     if (e.calendar == "gregorian") {
-        fullDate = new Date(e.year, e.month - 1, e.day);
-        if (e.repeat != undefined) {
-            let repeatInterval = e.repeat.split(",")[0];
-            let repeatUnit = e.repeat.split(",")[1];
-            while (true) {
-                switch (repeatUnit) {
-                    case "year":
-                        fullDate.setFullYear(fullDate.getFullYear() + parseInt(repeatInterval));
-                        break;
-                    case "month":
-                        fullDate.setMonth(fullDate.getMonth() + parseInt(repeatInterval));
-                        break;
-                    case "day":
-                        fullDate.setDate(fullDate.getDate() + parseInt(repeatInterval));
-                        break;
-                }
-                if (fullDate.getTime() >= Date.now()) {
+        fullDate = moment(e.date);
+        if (!e.repeat) {
+            return fullDate;
+        }
+        let repeatInterval = e.repeat.split(",")[0];
+        let repeatUnit = e.repeat.split(",")[1];
+        if (fullDate.isSame(moment(), 'day')){
+            return fullDate;
+        }
+        while (true) { // Repeat until now
+            if (fullDate >= moment()) {
+                break;
+            }
+            switch (repeatUnit) {
+                case "year":
+                    fullDate.year(fullDate.year() + parseInt(repeatInterval));
                     break;
-                }
+                case "month":
+                    fullDate.month(fullDate.month() + parseInt(repeatInterval));
+                    break;
             }
         }
     }

@@ -1,65 +1,57 @@
 <template>
-    <Today />
+    <Today :today="todayCount" :week="weekCount" />
     <Welcome v-if="!events || events.length === 0" />
-    <EventCard v-else v-for="event in events" :key="event.name" :event="event" :darkMode="darkMode" 
-    class="mb-4 relative pl-4 py-4 rounded-r-lg" />
-    <div v-for="event in newestEvents" :key="newestEvents">{{ event }}</div>
+    <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
 </template>
   
-<script>
-import { ref, onMounted } from 'vue';
+<script setup>
+import moment from "moment";
 
-export default {
-    setup() {
-        // 初始化 events 数据
-        const events = ref([]);
-        const darkMode = ref(false); // 默认为浅色模式
-        const newestEvents = ref([]);
+const events = ref([]);
+const todayCount = ref(0);
+const weekCount = ref(0);
+const { t } = useI18n({
+    useScope: 'local'
+})
 
-        const updateDarkMode = (e) => {
-            darkMode.value = e.matches;
-        };
+// Run in client, load/init events
+onMounted(() => {
+    const storedEvents = JSON.parse(localStorage.getItem('events'));
 
-        // 在浏览器环境中才执行
-        if (process.client) {
-            const mql = window.matchMedia('(prefers-color-scheme: dark)');
-            updateDarkMode(mql);
-            mql.onchange = (e) => updateDarkMode(e);
-        }
-        onMounted(() => {
-            // 读取 localStorage 中的 events 数据
-            const storedEvents = JSON.parse(localStorage.getItem('events'));
-
-            if (storedEvents) {
-                // 如果存在数据，则使用 localStorage 中的数据
-                events.value = storedEvents;
-                for (let i = 0; i < events.value.length; i++) {
-                    newestEvents.value.push(getLatestRepeat(events.value[i]));
-                }
-            } else {
-                // 否则，手动初始化数据并保存到 localStorage
-                events.value = [
-                    {
-                        name: 'My Birthday',
-                        calendar: 'gregorian',
-                        year: 2008,
-                        month: 8,
-                        day: 16,
-                        repeat: '1,year',
-                        reminder: [],
-                        background: 'blue',
-                        border: 'blue',
-                    },
-                ];
-                localStorage.setItem('events', JSON.stringify(events.value));
+    if (storedEvents) {
+        events.value = storedEvents;
+        // calculate number of events today
+        for (let e of storedEvents) {
+            const repeatDate=getLatestRepeat(e);
+            if (repeatDate.isSame(moment(), 'day')) {
+                todayCount.value++;
             }
-        });
-        return {
-            events,
-            newestEvents,
-            darkMode
-        };
-    },
-};
+            else if (e.repeat!==null && moment().add(7,'days') > repeatDate){
+                weekCount.value++;
+            }
+        }
+    }
+    else {
+        // TODO: initialize
+        events.value = [
+            {
+                name: t('defaultName'),
+                calendar: 'gregorian',
+                date: "2008-08-16",
+                repeat: '1,year',
+                reminder: [],
+                background: 'blue',
+                border: 'blue',
+            },
+        ];
+        localStorage.setItem('events', JSON.stringify(events.value));
+    }
+});
 </script>
-  
+
+<i18n lang="yaml">
+    en:
+        defaultName: 'My Birthday'
+    zh-CN:
+        defaultName: '生日'
+</i18n>
