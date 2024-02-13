@@ -36,7 +36,7 @@ h1 {
 
 h2 {
     margin-top: 16px;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     line-height: 1.75rem;
     line-height: 2rem;
     font-weight: 500;
@@ -74,8 +74,8 @@ input:focus {
 const { t } = useI18n({
     useScope: 'local'
 })
-const bgColor = ref("");
-const borderColor = ref("");
+const bgColor = ref("blue");
+const borderColor = ref("blue");
 </script>
 
 <i18n lang="yaml">

@@ -1,18 +1,22 @@
 const darkBackgroundPalette = {
     blue: '#292E3D',
     red: '#3D2929',
+    yellow: '#454540'
 };
 const lightBackgroundPalette = {
     blue: '#EFF6FE',
-    red: '#FFF0F0'
+    red: '#FFF0F0',
+    yellow: '#FFFFED',
 };
 const darkBorderPalette = {
     blue: '#7F9DCD',
     red: '#EA8B7D',
+    yellow: '#F9E98B',
 };
 const lightBorderPalette = {
     blue: '#A2D2FF',
     red: '#FF9888',
+    yellow: '#f6ea97',
 };
 
 export default function (kind: "bg"|"border", darkMode: boolean) {

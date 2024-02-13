@@ -13,6 +13,7 @@ import initMomentLocale from './i18n/moment';
 const darkMode = ref(false);
 const backgroundPalette = ref(getPlaette("bg", darkMode.value));
 const borderPalette = ref(getPlaette("border", darkMode.value));
+
 const updateDarkMode = (e: any) => {
     darkMode.value = e.matches;
     backgroundPalette.value = getPlaette("bg", e.matches);
