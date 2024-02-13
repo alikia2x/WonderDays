@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="absolute top-0 h-full right-1/4 lg:right-[20%] xl:right-[16.667%] w-40">
-            <nuxt-icon v-if="event.sticker.includes('partyPopper')" name="party-popper" class="absolute bottom-0 text-9xl" filled></nuxt-icon>
+            <nuxt-icon v-for="s in event.sticker" :name="s" class="absolute bottom-0 text-9xl" filled></nuxt-icon>
         </div>
     </div>
 </template>
