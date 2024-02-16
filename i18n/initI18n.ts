@@ -1,4 +1,4 @@
-const supportLanguages = ["zh-CN", "en"];
+const supportLanguages = ["zh-CN", "en", "ja"];
 function setLang() {
     if (!process.client) {
         return;

@@ -4,11 +4,12 @@
             <h1 class="text-3xl mb-1 relative font-bold">
                 {{ t('today') }} · {{ dateString }}
             </h1>
-            <h2 class="mt-2 eventCount">
+            <h2 class="text-black dark:text-white mt-2 eventCount">
                 <span v-if="today <= 0 && week <= 0">{{ t('noEvent') }}</span>
                 <span v-else-if="today == 1 && week <= 0 || today == 1 && week == 1">{{ t('1event') }}</span>
                 <span v-else-if="week == 1 && today <= 0">{{ t('1eventweek') }}</span>
-                <span v-else v-html="t('multiple').replace('$wk',`<strong>${week}</strong>`).replace('$td',`<strong>${today}</strong>`)"></span>
+                <span v-else
+                    v-html="t('multiple').replace('$wk', `<strong>${week}</strong>`).replace('$td', `<strong>${today}</strong>`)"></span>
             </h2>
         </ClientOnly>
         <AddBotton />
@@ -23,25 +24,16 @@
 }
 </style>
 
-<script>
+<script setup lang="ts">
 import moment from 'moment';
-
-export default {
-    props: {
-        today: Number,
-        week: Number,
-    },
-    setup() {
-        const { t } = useI18n({
-            useScope: 'local'
-        });
-        let dateString = moment().format(t('dateFormat'));
-        return {
-            dateString,
-            t
-        };
-    },
-}
+const props = defineProps<{
+    today: number,
+    week: number,
+}>();
+const { t } = useI18n({
+    useScope: 'local'
+});
+let dateString = moment().format(t('dateFormat'));
 </script>
 
 
@@ -52,7 +44,7 @@ en:
     1event: "1 Event"
     1eventweek: "1 Event in next seven days"
     events: "Events"
-    noEvent: "No Event"
+    noEvent: "No event today"
     multiple: "Today's events: $td. Upcoming events in the next seven days: $wk."
 zh-CN:
     today: "今天"
@@ -60,6 +52,14 @@ zh-CN:
     1event: "1 个事件"
     1eventweek: "7天内有 1 个事件"
     events: "个事件"
-    noEvent: "无事件"
+    noEvent: "今日无事件"
     multiple: "今天有 $td 个事件, 7天内共 $wk 个事件"
+ja:
+    today: "今日"
+    dateFormat: "M月D日"
+    1event: "1 イベント"
+    1eventweek: "次の7日間に1つのイベント"
+    events: "イベント"
+    noEvent: "今日のイベントはありません"
+    multiple: "今日のイベント: $td。次の7日間の予定: $wk。"
 </i18n>

@@ -1,26 +1,37 @@
 <template>
     <h1>{{ t('newEvent') }}</h1>
-    <label>
-        <h2>{{ t('eventName') }}</h2>
-        <input id="name" autocomplete="none" :placeholder="t('name')">
-    </label>
-    <label>
-        <h2>{{ t('date') }}</h2>
-        <input type="date" id="date" value="2024-02-09">
-    </label>
-    <label>
-        <h2 class="flex items-center">
-            <span>{{ t('time') }}</span>
-            <span class="ml-2 mt-[0.0625rem] px-[0.3125rem] py-[0.125rem] rounded text-xs font-normal 
+    <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => { console.log('FUCK YOU VUE') }">
+        <label for="name">
+            <h2>{{ t('eventName') }}</h2>
+        </label>
+        <input v-model="formData.name" id="name" autocomplete="off" :placeholder="t('name')">
+        <label for="date">
+            <h2>{{ t('date') }}</h2>
+        </label>
+        <input v-model="formData.date" type="date" id="date">
+        <label for="time">
+            <h2 class="flex items-center">
+                <span>{{ t('time') }}</span>
+                <span class="ml-2 mt-[0.0625rem] px-[0.3125rem] py-[0.125rem] rounded text-xs font-normal 
          bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 text-zinc-700 align-middle">
-                {{ t('optional') }}
-            </span>
-        </h2>
-        <input value="00:00" type="time" id="time">
-    </label>
-
-    <h2>{{ t('style') }}</h2>
-    <ColorPicker v-model:bgColor="bgColor" v-model:borderColor="borderColor" />
+                    {{ t('optional') }}
+                </span>
+            </h2>
+        </label>
+        <input v-model="formData.time" type="time" id="time">
+        <h2>{{ t('style') }}</h2>
+        <ColorPicker v-model:bgColor="formData.bgColor" v-model:borderColor="formData.borderColor" />
+        <!-- <div class="block relative h-24">
+            <h2>{{ t('repeat') }}</h2>
+            <label>
+                <span class="sr-only">{{ t('repeatNum') }}</span>
+                <input v-model="formData.repeatNum" type="number" class="repeat-number" min="0" max="999" step="1" id="repeatNum"
+                    pattern="\d+">
+            </label>
+        </div> -->
+        <p class="w-fit bg-[#ff0000] text-xl px-2 text-white">{{ errInfo }}</p>
+        <button @click.prevent="addEvent" type="submit">{{ t('submit') }}</button>
+    </form>
 </template>
 
 <style>
@@ -44,7 +55,7 @@ h2 {
 
 input {
     padding-left: 0.25rem;
-    height: 2rem;
+    height: 2.25rem;
     margin-top: 0.5rem;
     border-width: 2px;
     border-color: #D4D4D8;
@@ -54,45 +65,215 @@ input {
     width: 100%;
 }
 
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    padding-left: 0;
+
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+button[type=submit] {
+    position: relative;
+    width: 5rem;
+    height: 2.5rem;
+    padding-left: 0;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: black;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0.375rem;
+    border: black solid 2px;
+    margin-top: 1rem;
+}
+
+button[type=submit]:hover {
+    color: white;
+    background-color: black;
+}
+
+.repeat-number {
+    width: 4rem !important;
+    height: 2rem;
+    text-align: center;
+    padding: none;
+}
+
 input:focus {
     border-color: #000;
 }
 
 @media (prefers-color-scheme: dark) {
     input {
-        background-color: #2c2c2f;
-        border-color: #2c2c2f;
+        background-color: #171c27;
+        border-color: #374151;
     }
 
     input:focus {
         border-color: #a0a2a6;
     }
+
+    button[type=submit] {
+        color: white;
+        border: white solid 2px;
+    }
+
+    button[type=submit]:hover {
+        color: black;
+        background-color: white;
+        color: black;
+    }
+}
+
+/* Hide spans with this class becuase they're for screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
+import moment from 'moment';
+
+function nothing() {
+    ;
+}
+
 const { t } = useI18n({
     useScope: 'local'
 })
-const bgColor = ref("blue");
-const borderColor = ref("blue");
+
+const formData = ref({
+    name: '',
+    date: moment().format("YYYY-MM-DD").toString(),
+    time: undefined,
+    bgColor: 'blue',
+    borderColor: 'blue',
+    repeatNum: 0,
+});
+
+// 可以直接侦听一个 ref
+watch(formData.value, async (newData, oldData) => {
+    if (!validate().valid) {
+        errInfo.value = validate().msg;
+        return;
+    }
+    else {
+        errInfo.value = '';
+    }
+})
+
+const errInfo = ref('');
+
+function validate() {
+    const storedEvents = localStorage['events'];
+    if (storedEvents === undefined) {
+        return { valid: true, msg: '' };
+    }
+    const parsedEvents: CountdownEvent[] = JSON.parse(storedEvents);
+    if (formData.value.name.trim() === "") {
+        return { valid: false, msg: t('emptyName') }
+    }
+    for (let event of parsedEvents) {
+        if (event.name.toLowerCase() === formData.value.name.toLowerCase()) {
+            return { valid: false, msg: t('nameExist') }
+        }
+    }
+    return { valid: true, msg: '' }
+}
+
+function addEvent() {
+    if (!validate().valid) {
+        errInfo.value = validate().msg;
+        return;
+    }
+
+    let savedDateString = "";
+    if (formData.value.time !== undefined) {
+        savedDateString = formData.value.date + ' ' + formData.value.time;
+        savedDateString = moment(savedDateString).format("YYYY-MM-DD HH:mm:ss").toString();
+    }
+    else {
+        savedDateString = formData.value.date;
+        savedDateString = moment(savedDateString).format("YYYY-MM-DD").toString();
+    }
+
+    let newEvent = {
+        name: formData.value.name,
+        calendar: "gregorian",
+        date: savedDateString,
+        repeat: "",
+        reminder: [],
+        sticker: [],
+        background: formData.value.bgColor,
+        border: formData.value.borderColor
+    }
+
+    const savedEvents = localStorage["events"];
+    let newEvents;
+
+    if (savedEvents == undefined) {
+        newEvents = [newEvent];
+    } else {
+        newEvents = JSON.parse(savedEvents);
+        newEvents.push(newEvent);
+    }
+
+    localStorage.setItem("events", JSON.stringify(newEvents));
+    navigateTo('/');
+}
 </script>
 
+
 <i18n lang="yaml">
-    en:
-        newEvent: 'New Event'
-        eventName: 'Event Name'
-        name: 'Name'
-        date: 'Date'
-        time: 'Time'
-        style: 'Style'
-        optional: 'Optional'
-    zh-CN:
-        newEvent: '添加新事件'
-        eventName: '名称'
-        name: '名称'
-        date: '日期'
-        time: '时间'
-        style: '样式'
-        optional: '选填'
+en:
+    newEvent: 'New Event'
+    eventName: 'Event Name'
+    name: 'Name'
+    date: 'Date'
+    time: 'Time'
+    style: 'Style'
+    optional: 'Optional'
+    repeat: 'Repeat'
+    submit: 'Add'
+    repeatNum: 'Number of repeat interval'
+    nameExist: 'Same event exist.'
+    emptyName: 'Name is blank.'
+zh-CN:
+    newEvent: '添加新事件'
+    eventName: '名称'
+    name: '名称'
+    date: '日期'
+    time: '时间'
+    style: '样式'
+    optional: '选填'
+    repeat: '重复'
+    submit: '添加'
+    repeatNum: '重复间隔的数字'
+    nameExist: '该事件已存在'
+    emptyName: '请填写名称'
+ja:
+    newEvent: '新しいイベント'
+    eventName: 'イベント名'
+    name: '名前'
+    date: '日付'
+    time: '時間'
+    style: 'スタイル'
+    optional: '任意'
+    repeat: '繰り返し'
+    submit: '追加'
+    repeatNum: '繰り返し間隔の数'
+    nameExist: '同じイベントが存在します'
+    emptyName: '名前が空白です'
 </i18n>

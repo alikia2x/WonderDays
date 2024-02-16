@@ -1,5 +1,5 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// @type {import('tailwindcss').Config}
+module.exports = {
     content: [
         "./components/**/*.{js,vue,ts}",
         "./layouts/**/*.vue",
@@ -10,6 +10,11 @@ export default {
     ],
     theme: {
         extend: {
+            aspectRatio: {
+                auto: 'auto',
+                square: '1 / 1',
+                video: '16 / 9'
+            },
             lineHeight: {
                 12: "3rem",
             },

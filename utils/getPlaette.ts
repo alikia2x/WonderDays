@@ -1,12 +1,12 @@
 const darkBackgroundPalette = {
     blue: '#292E3D',
     red: '#3D2929',
-    yellow: '#454540'
+    yellow: '#313337'
 };
 const lightBackgroundPalette = {
     blue: '#EFF6FE',
     red: '#FFF0F0',
-    yellow: '#FFFFED',
+    yellow: '#FFFCD2',
 };
 const darkBorderPalette = {
     blue: '#7F9DCD',

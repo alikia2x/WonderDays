@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ['nuxt-icon', '@nuxtjs/i18n', 'nuxt-icons'],
+  modules: ['nuxt-icon', '@nuxtjs/i18n', 'nuxt-icons', '@nuxt/ui'],
   i18n: {
     vueI18n: '~/i18n/i18n.config.ts',
   },

@@ -4,10 +4,10 @@
     <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
 </template>
   
-<script setup>
+<script setup lang="ts">
 import moment from "moment";
 
-const events = ref([]);
+const events = ref([] as CountdownEvent[]);
 const todayCount = ref(0);
 const weekCount = ref(0);
 const { t } = useI18n({
@@ -16,17 +16,18 @@ const { t } = useI18n({
 
 // Run in client, load/init events
 onMounted(() => {
-    const storedEvents = JSON.parse(localStorage.getItem('events'));
+    const storedEvents = localStorage.getItem('events');
 
-    if (storedEvents) {
-        events.value = storedEvents;
+    if (storedEvents!== null) {
+        const parsedEvents:[CountdownEvent] = JSON.parse(storedEvents);
+        events.value = parsedEvents;
         // calculate number of events today
-        for (let e of storedEvents) {
+        for (let e of parsedEvents) {
             const repeatDate=getLatestRepeat(e);
             if (repeatDate.isSame(moment(), 'day')) {
                 todayCount.value++;
             }
-            else if (e.repeat!==null && moment().add(7,'days') > repeatDate){
+            else if (e.repeat!="" && moment().add(7,'days') > repeatDate){
                 weekCount.value++;
             }
         }
@@ -35,13 +36,14 @@ onMounted(() => {
         // TODO: initialize
         events.value = [
             {
-                name: t('defaultName'),
-                calendar: 'gregorian',
-                date: "2008-08-16",
-                repeat: '1,year',
-                reminder: [],
                 background: 'blue',
                 border: 'blue',
+                calendar: 'gregorian',
+                date: "2008-08-16",
+                name: t('defaultName'),
+                repeat: '1,year',
+                reminder: [],
+                sticker: [],
             },
         ];
         localStorage.setItem('events', JSON.stringify(events.value));
@@ -50,8 +52,10 @@ onMounted(() => {
 </script>
 
 <i18n lang="yaml">
-    en:
-        defaultName: 'My Birthday'
-    zh-CN:
-        defaultName: '生日'
+en:
+    defaultName: 'My Birthday'
+zh-CN:
+    defaultName: '生日'
+ja:
+    defaultName: '誕生日'
 </i18n>

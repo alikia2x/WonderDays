@@ -17,7 +17,7 @@
                 <!-- Number part -->
                 <label>
                     <span class="sr-only">
-                        {{ getCardDate(event)[0] + getCardDate(event)[1] + (isFuture ? t('later') : t('ago')) }}
+                        {{ getCardDate(event)[0].toString() + getCardDate(event)[1] + (isFuture ? t('later') : t('ago')) }}
                     </span>
                     <span aria-hidden="true" class="ddin relative text-6xl">
                         {{ getCardDate(event)[0] }}
@@ -63,63 +63,57 @@
 }
 </style>
   
-<script>
+<script setup lang="ts">
 import moment from 'moment';
-
-export default {
-    props: {
-        event: {
-            name: String,
-            calendar: String,
-            year: Number,
-            month: Number,
-            day: Number,
-            repeat: String,
-            reminder: Array,
-            background: String,
-            border: String,
-        },
+const props = defineProps<{
+    event: {
+        name: string,
+        calendar: string,
+        date: string,
+        repeat: string,
+        reminder: string[],
+        background: string,
+        border: string,
+        sticker: string[],
     },
-    setup(props) {
-        const backgroundPalette = inject('backgroundPlaette');
-        const borderPalette = inject('borderPlaette');
-        const isRepeat = props.event.repeat != undefined;
-        const hasReminder = props.event.reminder.length != 0;
-        const nextDate = getLatestRepeat(props.event);
-        let nextDateString = "";
-        if (nextDate) {
-            nextDateString = nextDate.format('ll');
-        }
-        const isFuture = nextDate.isAfter(moment());
-        const { t } = useI18n({ useScope: 'local' });
+}>()
+const backgroundPalette = inject('backgroundPlaette') as any;
+const borderPalette = inject('borderPlaette') as any;
+const isRepeat = props.event.repeat != "";
+const hasReminder = props.event.reminder.length != 0;
+const nextDate = getLatestRepeat(props.event);
+console.log(moment("2023/01/01").fromNow());
 
+let nextDateString = "";
+if (nextDate && nextDate.creationData().format === 'YYYY-MM-DD') {
+    nextDateString = nextDate.format('ll');
+} else{
+    nextDateString = nextDate.format('lll')
+}
+const isFuture = nextDate.isAfter(moment());
+const { t } = useI18n({ useScope: 'local' });
 
-        const getColor = () => {
-            return {
-                "background": backgroundPalette.value[props.event.background],
-                "border": borderPalette.value[props.event.border]
-            }
-        }
+console.log(moment.locales())
 
-        return {
-            getColor,
-            nextDateString,
-            isRepeat,
-            isFuture,
-            hasReminder,
-            t
-        };
-    },
-};
+const getColor = () => {
+    return {
+        "background": backgroundPalette.value[props.event.background],
+        "border": borderPalette.value[props.event.border]
+    }
+}
 </script>
 
 <i18n lang="yaml">
-    en:
-        later: "later"
-        ago: "ago"
-        space: ' '
-    zh-CN:
-        later: "后"
-        ago: "前"
-        space: ''
+en:
+    later: "later"
+    ago: "ago"
+    space: ' '
+zh-CN:
+    later: "后"
+    ago: "前"
+    space: ''
+ja:
+    later: "後で"
+    ago: "前"
+    space: ''
 </i18n>
