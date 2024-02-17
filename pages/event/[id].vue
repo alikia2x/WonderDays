@@ -20,6 +20,12 @@
     </div>
 </template>
 
+<style>
+.ddin {
+    font-family: DDIN, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+</style>
+
 <script setup lang="ts">
 import moment from 'moment';
 const route = useRoute();
