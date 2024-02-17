@@ -1,6 +1,11 @@
 <template>
+    <div class="absolute back">
+        <NuxtLink href="/">
+            <Icon style="font-size: 2.5rem; line-height: 2.5rem;" name="material-symbols:arrow-left-alt"></Icon>
+        </NuxtLink>
+    </div>
     <h1>{{ t('newEvent') }}</h1>
-    <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => {;}">
+    <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => { ; }">
         <label for="name">
             <h2>{{ t('eventName') }}</h2>
         </label>
@@ -35,6 +40,16 @@
 </template>
 
 <style>
+.back {
+    transform: translateY(calc(-100% - 1rem));
+}
+
+@media (min-width: 1024px) {
+    .back {
+        transform: translateX(calc(-100% - 1rem));
+    }
+}
+
 :root {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Open Sans', 'Helvetica Neue', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
@@ -107,6 +122,9 @@ button[type=submit]:hover {
 input:focus {
     border-color: #000;
 }
+.icon path{
+    stroke: black;
+}
 
 @media (prefers-color-scheme: dark) {
     input {
@@ -127,6 +145,9 @@ input:focus {
         color: black;
         background-color: white;
         color: black;
+    }
+    .icon path{
+        stroke: white;
     }
 }
 
