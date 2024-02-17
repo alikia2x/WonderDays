@@ -21,21 +21,17 @@ const updateDarkMode = (e: any) => {
 };
 
 // update Dark mode to using custom plaette
-if (process.client) {
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-    updateDarkMode(mql);
-    mql.onchange = (e) => updateDarkMode(e);
-}
+const mql = window.matchMedia('(prefers-color-scheme: dark)');
+updateDarkMode(mql);
+mql.onchange = (e) => updateDarkMode(e);
 provide('darkMode', darkMode);
 provide('backgroundPlaette', backgroundPalette);
 provide('borderPlaette', borderPalette);
 
 // Initilize i18n
-if (process.client){
-    setLang();
-    initMomentLocale();
-    moment.locale(getLang());
-}
+setLang();
+initMomentLocale();
+moment.locale(getLang());
 
 useSeoMeta({
     title: 'WonderDays',

@@ -1,17 +1,15 @@
 <template>
     <div class="mb-6 h-20 relative">
-        <ClientOnly>
-            <h1 class="text-3xl mb-1 relative font-bold">
-                {{ t('today') }} · {{ dateString }}
-            </h1>
-            <h2 class="text-black dark:text-white mt-2 eventCount">
-                <span v-if="today <= 0 && week <= 0">{{ t('noEvent') }}</span>
-                <span v-else-if="today == 1 && week <= 0 || today == 1 && week == 1">{{ t('1event') }}</span>
-                <span v-else-if="week == 1 && today <= 0">{{ t('1eventweek') }}</span>
-                <span v-else
-                    v-html="t('multiple').replace('$wk', `<strong>${week}</strong>`).replace('$td', `<strong>${today}</strong>`)"></span>
-            </h2>
-        </ClientOnly>
+        <h1 class="text-3xl mb-1 relative font-bold">
+            {{ t('today') }} · {{ dateString }}
+        </h1>
+        <h2 class="text-black dark:text-white mt-2 eventCount">
+            <span v-if="today <= 0 && week <= 0">{{ t('noEvent') }}</span>
+            <span v-else-if="today == 1 && week <= 0 || today == 1 && week == 1">{{ t('1event') }}</span>
+            <span v-else-if="week == 1 && today <= 0">{{ t('1eventweek') }}</span>
+            <span v-else
+                v-html="t('multiple').replace('$wk', `<strong>${week}</strong>`).replace('$td', `<strong>${today}</strong>`)"></span>
+        </h2>
         <AddBotton />
     </div>
 </template>

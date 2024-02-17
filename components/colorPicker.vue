@@ -1,28 +1,26 @@
 <template>
-    <ClientOnly>
-        <h3 class="mt-3 mb-2 text-xl leading-7">{{ t('bgColor') }}{{ t(bgColor as string + 'Bg') }}</h3>
-        <div class="flex flex-wrap gap-6 h-fit mb-5">
-            <div v-for="(bg, n) in bgPlaette" :key="n">
-                <div @click="setBgColor(n)" class="h-14 w-14 mr-3 relative rounded-lg cursor-pointer colorBox" :style="{
-                    backgroundColor: bg,
-                    borderWidth: '0.2rem',
-                    borderColor: adjustColor(adjustColor(bg, (darkMode ? 0 : 1.5), 'c'), (darkMode ? 1.5 : -0.1)),
-                    scale: bgColor == n ? 1.1 : 1
-                }"></div>
-            </div>
+    <h3 class="mt-3 mb-2 text-xl leading-7">{{ t('bgColor') }}{{ t(bgColor as string + 'Bg') }}</h3>
+    <div class="flex flex-wrap gap-6 h-fit mb-5">
+        <div v-for="(bg, n) in bgPlaette" :key="n">
+            <div @click="setBgColor(n)" class="h-14 w-14 mr-3 relative rounded-lg cursor-pointer colorBox" :style="{
+                backgroundColor: bg,
+                borderWidth: '0.2rem',
+                borderColor: adjustColor(adjustColor(bg, (darkMode ? 0 : 1.5), 'c'), (darkMode ? 1.5 : -0.1)),
+                scale: bgColor == n ? 1.1 : 1
+            }"></div>
         </div>
-        <h3 class="mb-2 text-xl leading-7">{{ t('borderColor') }}{{ t(borderColor as string + 'Border') }}</h3>
-        <div class="flex flex-wrap gap-6 h-fit !mb-5">
-            <div v-for="(border, n) in borderPlaette" :key="n">
-                <div @click="setBorderColor(n)" class="h-14 w-14 mr-3 relative rounded-lg cursor-pointer colorBox" :style="{
-                    backgroundColor: adjustColor(border, (darkMode ? -0.25 : 0.08)),
-                    borderWidth: '0.2rem',
-                    borderColor: border,
-                    scale: borderColor == n ? 1.1 : 1
-                }"></div>
-            </div>
+    </div>
+    <h3 class="mb-2 text-xl leading-7">{{ t('borderColor') }}{{ t(borderColor as string + 'Border') }}</h3>
+    <div class="flex flex-wrap gap-6 h-fit !mb-5">
+        <div v-for="(border, n) in borderPlaette" :key="n">
+            <div @click="setBorderColor(n)" class="h-14 w-14 mr-3 relative rounded-lg cursor-pointer colorBox" :style="{
+                backgroundColor: adjustColor(border, (darkMode ? -0.25 : 0.08)),
+                borderWidth: '0.2rem',
+                borderColor: border,
+                scale: borderColor == n ? 1.1 : 1
+            }"></div>
         </div>
-    </ClientOnly>
+    </div>
 </template>
 
 <style>

@@ -15,7 +15,7 @@ const { t } = useI18n({
 
 <i18n lang="yaml">
 zh-CN:
-    add: "追加"
+    add: "添加"
 en:
     add: "Add"
 ja:

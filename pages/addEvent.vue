@@ -1,6 +1,6 @@
 <template>
     <h1>{{ t('newEvent') }}</h1>
-    <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => { console.log('FUCK YOU VUE') }">
+    <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => {;}">
         <label for="name">
             <h2>{{ t('eventName') }}</h2>
         </label>

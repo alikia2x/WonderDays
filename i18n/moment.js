@@ -108,7 +108,7 @@ function initMomentLocale() {
             doy: 4, // The week that contains Jan 4th is the first week of the year.
         },
     });
-    moment.defineLocale('en', {
+    moment.updateLocale('en', {
         months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
             '_'
         ),
