@@ -2,7 +2,7 @@
     <NuxtLink :to="`/event/${event.name}`">
         <div :style="{ background: getColor().background, border: getColor().border, borderWidth: '0.4rem', borderLeftStyle: 'solid' }"
             class="darkMo min-h-28 mb-7 relative pl-4 pb-4 pt-1 rounded-r-lg">
-            <h2 class="text-2xl font-bold leading-10"> {{ event.name }} </h2>
+            <h2 class="text-2xl font-bold leading-10 w-7/12"> {{ event.name }} </h2>
             <p class="text-gray-600 dark:text-gray-400">
                 {{ nextDateString }}
             </p>

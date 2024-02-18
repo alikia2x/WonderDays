@@ -14,9 +14,14 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ['nuxt-icon', '@nuxtjs/i18n', 'nuxt-icons', '@nuxt/ui'],
+  modules: ['nuxt-icon', '@nuxtjs/i18n', 'nuxt-icons', '@nuxt/ui', '@kevinmarrec/nuxt-pwa'],
   i18n: {
     vueI18n: '~/i18n/i18n.config.ts',
+  },
+  pwa: {
+    workbox: {
+      enabled: false, // 开发模式也启动
+    }
   },
   app: {
     head: {

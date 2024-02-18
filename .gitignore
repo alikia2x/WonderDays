@@ -27,3 +27,5 @@ logs
 .vscode
 .idea
 .fleet
+
+sw.*
