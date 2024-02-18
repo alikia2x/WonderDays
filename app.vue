@@ -1,4 +1,5 @@
 <template>
+    <NuxtPwaManifest />
     <div class="w-full h-fit dark:bg-zinc-950 dark:text-white darkMo">
         <NuxtLayout>
             <NuxtPage />
@@ -38,5 +39,5 @@ useSeoMeta({
     ogTitle: 'WonderDays',
     description: "WonderDays: Your personal event countdown. Cherish moments with a simple, elegant countdown timer for life's significant milestones. Start anticipating your special days now!",
     ogDescription: "Wonderdays: Your personal event countdown. Cherish moments with a simple, elegant countdown timer for life's significant milestones. Start anticipating your special days now!",
-})
+});
 </script>

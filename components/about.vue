@@ -1,7 +1,7 @@
 <template>
     <p>
         <span>
-            WonderDays 1.3.4 &nbsp;
+            WonderDays 1.3.5 &nbsp;
         </span>
         <a class="dark:text-[#34FF7E] dark:hover:text-green-500 text-green-600 hover:text-green-700 duration-200" href="https://github.com/alikia2x/wonderdays">
             GitHub
