@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 		filename: 'sw.js',
         registerType: "autoUpdate",
         injectManifest: {
-            globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+            globPatterns: ["**/*.{js,css,html,png,svg,ico,otf}"],
         },
         includeAssets: ["favicon.ico"],
         manifest: {
