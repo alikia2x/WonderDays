@@ -18,39 +18,41 @@ export default defineNuxtConfig({
         vueI18n: "~/i18n/i18n.config.ts",
     },
     pwa: {
-        injectRegister: 'auto',
-        strategies: "generateSW",
-        registerType: 'autoUpdate',
-        workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg}','/']
+		strategies: "injectManifest",
+		srcDir: 'service-worker/',
+		filename: 'sw.js',
+        registerType: "autoUpdate",
+        injectManifest: {
+            globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
         },
-        includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+        includeAssets: ["favicon.ico"],
         manifest: {
-          name: "WonderDays",
-          short_name: "WonderDays",
-          description: "WonderDays: Your personal event countdown. Cherish moments with a simple, elegant countdown timer for life's significant milestones. Start anticipating your special days now!",
-          theme_color: '#ffffff',
-          icons: [
-            {
-              src: 'pwa-192x192.png',
-              sizes: '192x192',
-              type: 'image/png',
-              purpose: 'any'
-            },
-            {
-              src: 'pwa-512x512.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'any'
-            },
-            { 
-              src: "/maskable-icon.png", 
-              sizes: "512x512",
-              type: "image/png",
-              purpose: "maskable" 
-            }
-          ]
-        }
+            name: "WonderDays",
+            short_name: "WonderDays",
+            description:
+                "WonderDays: Your personal event countdown. Cherish moments with a simple, elegant countdown timer for life's significant milestones. Start anticipating your special days now!",
+            theme_color: "#ffffff",
+            icons: [
+                {
+                    src: "pwa-192x192.png",
+                    sizes: "192x192",
+                    type: "image/png",
+                },
+                {
+                    src: "pwa-512x512.png",
+                    sizes: "512x512",
+                    type: "image/png",
+                    purpose: "any",
+                },
+                {
+                    src: "/maskable-icon.png",
+                    sizes: "512x512",
+                    type: "image/png",
+                    purpose: "maskable",
+                },
+            ],
+            start_url: "",
+        },
     },
     app: {
         head: {

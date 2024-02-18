@@ -1,6 +1,6 @@
 <template>
     <div class="absolute back">
-        <NuxtLink href="/">
+        <NuxtLink tabindex="0" :aria-label="t('back')" href="/">
             <Icon style="font-size: 2.5rem; line-height: 2.5rem;" name="material-symbols:arrow-left-alt"></Icon>
         </NuxtLink>
     </div>
@@ -34,7 +34,7 @@
                     pattern="\d+">
             </label>
         </div> -->
-        <p class="w-fit bg-[#ff0000] text-xl px-2 text-white">{{ errInfo }}</p>
+        <p role="alert" class="w-fit bg-[#ff0000] text-xl px-2 text-white">{{ errInfo }}</p>
         <button @click.prevent="addEvent" type="submit">{{ t('submit') }}</button>
     </form>
 </template>
@@ -122,7 +122,8 @@ button[type=submit]:hover {
 input:focus {
     border-color: #000;
 }
-.icon path{
+
+.icon path {
     stroke: black;
 }
 
@@ -146,7 +147,8 @@ input:focus {
         background-color: white;
         color: black;
     }
-    .icon path{
+
+    .icon path {
         stroke: white;
     }
 }
@@ -184,10 +186,11 @@ const formData = ref({
     repeatNum: 0,
 });
 
-// 可以直接侦听一个 ref
+
 watch(formData.value, async (newData, oldData) => {
     if (!validate().valid) {
         errInfo.value = validate().msg;
+        document.getElementById(validate().id)?.setAttribute('aria-invalid', 'true');
         return;
     }
     else {
@@ -200,18 +203,18 @@ const errInfo = ref('');
 function validate() {
     const storedEvents = localStorage['events'];
     if (storedEvents === undefined) {
-        return { valid: true, msg: '' };
+        return { valid: true, msg: '', id: '' };
     }
     const parsedEvents: CountdownEvent[] = JSON.parse(storedEvents);
     if (formData.value.name.trim() === "") {
-        return { valid: false, msg: t('emptyName') }
+        return { valid: false, msg: t('emptyName'), id: 'name' }
     }
     for (let event of parsedEvents) {
         if (event.name.toLowerCase() === formData.value.name.toLowerCase()) {
-            return { valid: false, msg: t('nameExist') }
+            return { valid: false, msg: t('nameExist'), id: 'name' }
         }
     }
-    return { valid: true, msg: '' }
+    return { valid: true, msg: '', id: '' }
 }
 
 function addEvent() {
@@ -271,6 +274,7 @@ en:
     repeatNum: 'Number of repeat interval'
     nameExist: 'Same event exist.'
     emptyName: 'Name is blank.'
+    back: 'Back'
 zh-CN:
     newEvent: '添加新事件'
     eventName: '名称'
@@ -284,6 +288,7 @@ zh-CN:
     repeatNum: '重复间隔的数字'
     nameExist: '该事件已存在'
     emptyName: '请填写名称'
+    back: '返回'
 ja:
     newEvent: '新しいイベント'
     eventName: 'イベント名'
@@ -297,4 +302,5 @@ ja:
     repeatNum: '繰り返し間隔の数'
     nameExist: '同じイベントが存在します'
     emptyName: '名前が空白です'
+    back: '戻る'
 </i18n>

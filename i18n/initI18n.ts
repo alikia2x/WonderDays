@@ -5,10 +5,12 @@ function setLang() {
     for (let l of supportLanguages) {
         if (lang.toLowerCase().includes(l.toLowerCase())) {
             locale.value = l;
+            document.documentElement.setAttribute('lang', navigator.language);
             return;
         }
     }
     locale.value = "en";
+    document.documentElement.setAttribute('lang', 'en-US');
 }
 
 export const getLang = () =>{
