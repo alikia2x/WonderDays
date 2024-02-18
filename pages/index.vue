@@ -2,6 +2,11 @@
     <Today :today="todayCount" :week="weekCount" />
     <Welcome v-if="!events || events.length === 0" />
     <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
+    <About></About>
+    <p>
+        <ExportBackup></ExportBackup>
+        <ImportBackup></ImportBackup>
+    </p>
 </template>
   
 <script setup lang="ts">
@@ -18,16 +23,16 @@ const { t } = useI18n({
 onMounted(() => {
     const storedEvents = localStorage.getItem('events');
 
-    if (storedEvents!== null) {
-        const parsedEvents:[CountdownEvent] = JSON.parse(storedEvents);
+    if (storedEvents !== null) {
+        const parsedEvents: [CountdownEvent] = JSON.parse(storedEvents);
         events.value = parsedEvents;
         // calculate number of events today
         for (let e of parsedEvents) {
-            const repeatDate=getLatestRepeat(e);
+            const repeatDate = getLatestRepeat(e);
             if (repeatDate.isSame(moment(), 'day')) {
                 todayCount.value++;
             }
-            else if (e.repeat!="" && moment().add(7,'days') > repeatDate){
+            else if (e.repeat != "" && moment().add(7, 'days') > repeatDate) {
                 weekCount.value++;
             }
         }
