@@ -2,7 +2,7 @@ import moment from "moment";
 
 export default function (e: CountdownEvent) {
     let fullDate = moment();
-    // TODO: create a uify function for mutil-calendar transforming
+    // TODO: create a uify function for multi-calendar transforming
     if (e.calendar == "gregorian") {
         fullDate = moment(e.date);
         if (!e.repeat) {
@@ -13,7 +13,10 @@ export default function (e: CountdownEvent) {
         if (fullDate.isSame(moment(), 'day')){
             return fullDate;
         }
-        while (true) { // Repeat until now
+
+        const maxIterations = 1000; // prevent infinite loop
+
+        for (let i = 0; i < maxIterations; i++) {
             if (fullDate >= moment()) {
                 break;
             }
@@ -23,6 +26,8 @@ export default function (e: CountdownEvent) {
                     break;
                 case "month":
                     fullDate.month(fullDate.month() + parseInt(repeatInterval));
+                    break;
+                default:
                     break;
             }
         }
