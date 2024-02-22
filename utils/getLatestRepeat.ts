@@ -8,8 +8,8 @@ export default function (e: CountdownEvent) {
         if (!e.repeat) {
             return fullDate;
         }
-        let repeatInterval = e.repeat.split(",")[0];
-        let repeatUnit = e.repeat.split(",")[1];
+        const repeatInterval = e.repeat.split(",")[0];
+        const repeatUnit = e.repeat.split(",")[1];
         if (fullDate.isSame(moment(), 'day')){
             return fullDate;
         }

@@ -1,8 +1,8 @@
 const supportLanguages = ["zh-CN", "en", "ja"];
 function setLang() {
-    let { locale } = useI18n();
-    let lang = navigator.language;
-    for (let l of supportLanguages) {
+    const { locale } = useI18n();
+    const lang = navigator.language;
+    for (const l of supportLanguages) {
         if (lang.toLowerCase().includes(l.toLowerCase())) {
             locale.value = l;
             document.documentElement.setAttribute('lang', navigator.language);
@@ -14,8 +14,8 @@ function setLang() {
 }
 
 export const getLang = () =>{
-    let lang = navigator.language;
-    for (let l of supportLanguages) {
+    const lang = navigator.language;
+    for (const l of supportLanguages) {
         if (lang.toLowerCase().includes(l.toLowerCase())) {
             return l;
         }
