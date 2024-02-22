@@ -145,7 +145,6 @@ input:focus {
     button[type=submit]:hover {
         color: black;
         background-color: white;
-        color: black;
     }
 
     .icon path {
