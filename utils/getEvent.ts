@@ -1,5 +1,5 @@
 type getEventResult = {
-    code: Number;
+    code: number;
     data: CountdownEvent | null;
 };
 
@@ -9,7 +9,7 @@ export default function (name: string): getEventResult {
         return { code: -1, data: null };
     }
     const parsedEvents: CountdownEvent[] = JSON.parse(storedEvents);
-    for (let event of parsedEvents) {
+    for (const event of parsedEvents) {
         if (event.name.toLowerCase() === name.toLowerCase()) {
             return { code: 0, data: event };
         }

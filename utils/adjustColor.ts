@@ -1,7 +1,7 @@
 import Color from "colorjs.io"
 
 export default function (hexColor: string, d: number, p: string = "l"): string {
-    let c = new Color(hexColor);
+    const c = new Color(hexColor);
     switch (p) {
         case 'l':
             c.lch.l*=1+d;
