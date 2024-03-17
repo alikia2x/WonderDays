@@ -7,6 +7,38 @@
     </div>
 </template>
 
+<style>
+.page-enter-active,
+.page-leave-active {
+    transition: all .2s;
+}
+
+.page-leave-to {
+    opacity: 0;
+}
+
+.page-enter-from {
+    opacity: 0.4;
+}
+
+@media (min-width: 768px) {
+    .page-enter-active,
+    .page-leave-active {
+        transition: all .25s;
+    }
+
+    .page-leave-to {
+        opacity: 0;
+        filter: blur(0.4rem);
+    }
+
+    .page-enter-from {
+        opacity: 0.3;
+        filter: blur(0.15rem);
+    }
+}
+</style>
+
 <script setup lang="ts">
 import moment from 'moment';
 import setLang, { getLang } from './i18n/initI18n';

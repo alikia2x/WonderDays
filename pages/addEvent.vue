@@ -1,32 +1,33 @@
 <template>
-    <div class="absolute back">
-        <NuxtLink tabindex="0" :aria-label="t('back')" href="/">
-            <Icon style="font-size: 2.5rem; line-height: 2.5rem;" name="material-symbols:arrow-left-alt"></Icon>
-        </NuxtLink>
-    </div>
-    <h1>{{ t('newEvent') }}</h1>
-    <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => { ; }">
-        <label for="name">
-            <h2>{{ t('eventName') }}</h2>
-        </label>
-        <input v-model="formData.name" id="name" autocomplete="off" :placeholder="t('name')">
-        <label for="date">
-            <h2>{{ t('date') }}</h2>
-        </label>
-        <input v-model="formData.date" type="date" id="date">
-        <label for="time">
-            <h2 class="flex items-center">
-                <span>{{ t('time') }}</span>
-                <span class="ml-2 mt-[0.0625rem] px-[0.3125rem] py-[0.125rem] rounded text-xs font-normal 
+    <div>
+        <div class="absolute back">
+            <NuxtLink tabindex="0" :aria-label="t('back')" href="/">
+                <Icon style="font-size: 2.5rem; line-height: 2.5rem;" name="material-symbols:arrow-left-alt"></Icon>
+            </NuxtLink>
+        </div>
+        <h1>{{ t('newEvent') }}</h1>
+        <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => { ; }">
+            <label for="name">
+                <h2>{{ t('eventName') }}</h2>
+            </label>
+            <input v-model="formData.name" id="name" autocomplete="off" :placeholder="t('name')">
+            <label for="date">
+                <h2>{{ t('date') }}</h2>
+            </label>
+            <input v-model="formData.date" type="date" id="date">
+            <label for="time">
+                <h2 class="flex items-center">
+                    <span>{{ t('time') }}</span>
+                    <span class="ml-2 mt-[0.0625rem] px-[0.3125rem] py-[0.125rem] rounded text-xs font-normal 
          bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 text-zinc-700 align-middle">
-                    {{ t('optional') }}
-                </span>
-            </h2>
-        </label>
-        <input v-model="formData.time" type="time" id="time">
-        <h2>{{ t('style') }}</h2>
-        <ColorPicker v-model:bgColor="formData.bgColor" v-model:borderColor="formData.borderColor" />
-        <!-- <div class="block relative h-24">
+                        {{ t('optional') }}
+                    </span>
+                </h2>
+            </label>
+            <input v-model="formData.time" type="time" id="time">
+            <h2>{{ t('style') }}</h2>
+            <ColorPicker v-model:bgColor="formData.bgColor" v-model:borderColor="formData.borderColor" />
+            <!-- <div class="block relative h-24">
             <h2>{{ t('repeat') }}</h2>
             <label>
                 <span class="sr-only">{{ t('repeatNum') }}</span>
@@ -34,9 +35,11 @@
                     pattern="\d+">
             </label>
         </div> -->
-        <p role="alert" class="w-fit bg-[#ff0000] text-xl px-2 text-white">{{ errInfo }}</p>
-        <button @click.prevent="addEvent" type="submit">{{ t('submit') }}</button>
-    </form>
+            <p role="alert" class="w-fit bg-[#ff0000] text-xl px-2 text-white">{{ errInfo }}</p>
+            <button @click.prevent="addEvent" type="submit">{{ t('submit') }}</button>
+        </form>
+    </div>
+
 </template>
 
 <style>

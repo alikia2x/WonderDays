@@ -1,14 +1,16 @@
 <template>
-    <Today :today="todayCount" :week="weekCount" />
-    <Welcome v-if="!events || events.length === 0" />
-    <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
-    <About></About>
-    <p>
-        <ExportBackup></ExportBackup>
-        <ImportBackup></ImportBackup>
-    </p>
+    <div>
+        <Today :today="todayCount" :week="weekCount" />
+        <Welcome v-if="!events || events.length === 0" />
+        <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
+        <About></About>
+        <p>
+            <ExportBackup></ExportBackup>
+            <ImportBackup></ImportBackup>
+        </p>
+    </div>
 </template>
-  
+
 <script setup lang="ts">
 import moment from "moment";
 

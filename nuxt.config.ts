@@ -18,9 +18,9 @@ export default defineNuxtConfig({
         vueI18n: "~/i18n/i18n.config.ts",
     },
     pwa: {
-		strategies: "injectManifest",
-		srcDir: 'service-worker/',
-		filename: 'sw.js',
+        strategies: "injectManifest",
+        srcDir: "service-worker/",
+        filename: "sw.js",
         registerType: "autoUpdate",
         injectManifest: {
             globPatterns: ["**/*.{js,css,html,png,svg,ico,otf}"],
@@ -58,6 +58,10 @@ export default defineNuxtConfig({
         head: {
             charset: "utf-8",
             viewport: "width=device-width, initial-scale=1",
+        },
+        pageTransition: {
+            name: "page",
+            mode: "out-in", // default
         },
     },
     ssr: false,
