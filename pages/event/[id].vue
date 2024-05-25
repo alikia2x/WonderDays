@@ -1,11 +1,6 @@
 <template>
+    <HeaderBar :title="name"/>
     <div>
-        <div class="absolute back">
-            <NuxtLink tabindex="0" :aria-label="t('back')" href="/">
-                <Icon class="text-5xl" name="bitcoin-icons:arrow-left-outline"></Icon>
-            </NuxtLink>
-        </div>
-
         <div class="relative h-fit min-h-72">
             <h1 aria-hidden="true" class="text-5xl mb-6 font-extralight">{{ name + t('space') + suffix }}</h1>
             <SplitLine></SplitLine>
@@ -13,25 +8,11 @@
                 <span tabindex="1" class="sr-only">{{ relativeDaysSR }}</span>
             </label>
             <div id="relativeTime" aria-hidden="true" class="my-4">
-                <span class="relative text-8xl font-thin">{{ relativeDays }}</span>
+                <span class="relative text-8xl font-thin">{{ getCardDate(event) }}</span>
                 <span>{{ t('space') }}</span>
                 <span class="relative text-3xl leading-12 ml-1 font-extralight">{{ unit }}</span>
             </div>
-            <button tabindex="2" v-if="!confirmDelete" @click="confirmDelete = true"
-                class="border-2 border-black dark:border-white hover:bg-[#FF0000] hover:border-[#FF0000] dark:hover:border-[#FF0000] duration-200 px-4 py-2 rounded-md mt-4">
-                {{ t('delete') }}
-            </button>
-            <div role="listbox">
-                <button tabindex="2" role="option" v-if="confirmDelete" @click="deleteEvent"
-                    class="border-2 border-black dark:border-white hover:bg-[#FF0000] hover:border-[#FF0000] dark:hover:border-[#FF0000] duration-200 px-4 py-2 rounded-md mt-4">
-                    {{ t('deleteConfirm') }}
-                </button>
-
-                <button tabindex="2" role="option" v-if="confirmDelete" @click="confirmDelete = false"
-                    class="ml-2 border-2 border-black dark:border-white hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-black hover:dark:border-white duration-200 px-4 py-2 rounded-md mt-4">
-                    {{ t('cancelDelete') }}
-                </button>
-            </div>
+            <DeleteButton />
         </div>
     </div>
 
@@ -75,14 +56,6 @@ const suffix = isFuture ? t('remain') : t('past');
 const relativeDays = isFuture ? Math.ceil(nextDate.diff(moment(), 'days', true)) : Math.ceil(moment().diff(nextDate, 'days', true));
 const relativeDaysSR = name + t('space') + suffix + t('daysSR').replaceAll('%d', relativeDays.toString());
 const unit = relativeDays > 1 ? t('days') : t('day');
-const confirmDelete = ref(false);
-
-const deleteEvent = () => {
-    let events: CountdownEvent[] = JSON.parse(localStorage.getItem('events') || '[]');
-    events = events.filter((e) => e.name !== name);
-    localStorage.setItem('events', JSON.stringify(events));
-    location.href = "/";
-};
 </script>
 
 <i18n lang="yaml">

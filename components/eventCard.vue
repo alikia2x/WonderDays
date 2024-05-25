@@ -13,7 +13,7 @@
             </div>
             <!-- Relative time -->
             <div
-                class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed w-1/4 lg:1/5 xl:w-[18%] min-w-36 top-0 right-0">
+                class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed lg:1/5 xl:w-[18%] min-w-32 w-fit px-4 top-0 right-0">
                 <div class="relative text-center flex flex-col w-full top-1/2 translate-y-[-50%]">
                     <!-- Number part -->
                     <label>
@@ -23,7 +23,7 @@
                         <span class="sr-only" v-else>
                             {{ getCardDate(event) + t('day') + (isFuture ? t('later') : t('ago')) }}
                         </span>
-                        <span aria-hidden="true" class="ddin relative text-6xl">
+                        <span aria-hidden="true" class="font-[ddin] relative text-6xl font-extralight">
                             {{ getCardDate(event) }}
                         </span>
                     </label>
@@ -68,8 +68,8 @@
     vertical-align: middle;
 }
 
-.ddin {
-    font-family: DDIN, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+.comfortaa {
+    font-family: Comfortaa, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 </style>
 

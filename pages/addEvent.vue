@@ -1,10 +1,6 @@
 <template>
     <div>
-        <div class="absolute back">
-            <NuxtLink tabindex="0" :aria-label="t('back')" href="/">
-                <Icon style="font-size: 2.5rem; line-height: 2.5rem;" name="material-symbols:arrow-left-alt"></Icon>
-            </NuxtLink>
-        </div>
+        <HeaderBar :title="t('newEvent')" />
         <h1>{{ t('newEvent') }}</h1>
         <form v-on:keydown.enter.prevent="nothing" @submit.prevent="() => { ; }">
             <label for="name">
@@ -43,16 +39,6 @@
 </template>
 
 <style>
-.back {
-    transform: translateY(calc(-100% - 1rem));
-}
-
-@media (min-width: 1024px) {
-    .back {
-        transform: translateX(calc(-100% - 1rem));
-    }
-}
-
 :root {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Open Sans', 'Helvetica Neue', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }

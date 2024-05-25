@@ -3,11 +3,8 @@
         <Today :today="todayCount" :week="weekCount" />
         <Welcome v-if="!events || events.length === 0" />
         <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
-        <About></About>
-        <p>
-            <ExportBackup></ExportBackup>
-            <ImportBackup></ImportBackup>
-        </p>
+        <About/>
+        <PreviewFooter/>
     </div>
 </template>
 
@@ -21,7 +18,6 @@ const { t } = useI18n({
     useScope: 'local'
 })
 
-// Run in client, load/init events
 onMounted(() => {
     const storedEvents = localStorage.getItem('events');
 
