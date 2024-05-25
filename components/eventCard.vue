@@ -13,25 +13,32 @@
             </div>
             <!-- Relative time -->
             <div
-                class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed w-1/4 lg:1/5 xl:w-1/6 min-w-32 top-0 right-0">
+                class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed w-1/4 lg:1/5 xl:w-[18%] min-w-36 top-0 right-0">
                 <div class="relative text-center flex flex-col w-full top-1/2 translate-y-[-50%]">
                     <!-- Number part -->
                     <label>
-                        <span class="sr-only">
-                            {{ getCardDate(event)[0].toString() + getCardDate(event)[1] + (isFuture ? t('later') : t('ago'))
-                            }}
+                        <span class="sr-only" v-if="getCardDate(event) > 1">
+                            {{ getCardDate(event) + t('days') + (isFuture ? t('later') : t('ago')) }}
+                        </span>
+                        <span class="sr-only" v-else>
+                            {{ getCardDate(event) + t('day') + (isFuture ? t('later') : t('ago')) }}
                         </span>
                         <span aria-hidden="true" class="ddin relative text-6xl">
-                            {{ getCardDate(event)[0] }}
+                            {{ getCardDate(event) }}
                         </span>
                     </label>
 
                     <!-- Unit part -->
                     <div class="relative text-base">
-                        <span aria-hidden="true" id="relativeTimeUnit">{{ getCardDate(event)[1] }}</span>
-                        <span>{{ t('space') }}</span>
-                        <span aria-hidden="true" id="relativeTimeWord" v-if="isFuture">{{ t('later') }}</span>
-                        <span aria-hidden="true" id="relativeTimeWord" v-else>{{ t('ago') }}</span>
+                        <span aria-hidden="true" id="relativeTimeUnit" v-if="getCardDate(event) > 1">
+                            {{ t('days') }}
+                        </span>
+                        <span aria-hidden="true" id="relativeTimeUnit" v-else>{{ t('day') }}</span>
+                        <span v-if="getCardDate(event) !== 0">
+                            <span>{{ t('space') }}</span>
+                            <span aria-hidden="true" id="relativeTimeWord" v-if="isFuture">{{ t('later') }}</span>
+                            <span aria-hidden="true" id="relativeTimeWord" v-else>{{ t('ago') }}</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -65,7 +72,7 @@
     font-family: DDIN, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 </style>
-  
+
 <script setup lang="ts">
 import moment from 'moment';
 const props = defineProps<{
@@ -98,13 +105,19 @@ const getColor = () => {
 en:
     later: "later"
     ago: "ago"
+    day: 'day'
+    days: 'days'
     space: ' '
 zh-CN:
     later: "后"
     ago: "前"
+    day: '天'
+    days: '天'
     space: ''
 ja:
     later: "後で"
     ago: "前"
+    day: '日'
+    days: '日'
     space: ''
 </i18n>
