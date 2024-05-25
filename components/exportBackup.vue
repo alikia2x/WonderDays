@@ -9,6 +9,8 @@
 </template>
   
 <script>
+import { consola } from "consola";
+
 export default {
     methods: {
         downloadBackup() {
@@ -38,7 +40,7 @@ export default {
                 window.URL.revokeObjectURL(url);
             } else {
                 // Log an error message if no events data is found
-                console.error('No events data found in localStorage');
+                consola.error('No events data found in localStorage');
             }
         },
     },

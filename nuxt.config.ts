@@ -18,14 +18,14 @@ export default defineNuxtConfig({
         vueI18n: "~/i18n/i18n.config.ts",
     },
     pwa: {
-        strategies: "injectManifest",
-        srcDir: "service-worker/",
-        filename: "sw.js",
         registerType: "autoUpdate",
-        injectManifest: {
-            globPatterns: ["**/*.{js,css,html,png,svg,ico,otf}"],
+        injectRegister: "auto",
+        workbox: {
+            globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
         },
-        includeAssets: ["favicon.ico"],
+        devOptions: {
+            enabled: true,
+        },
         manifest: {
             name: "WonderDays",
             short_name: "WonderDays",
