@@ -9,6 +9,7 @@
 </template>
   
 <script>
+import { consola } from "consola";
 export default {
     methods: {
         openFileInput() {
@@ -19,20 +20,17 @@ export default {
 
             if (file) {
                 const reader = new FileReader();
-
                 reader.onload = (e) => {
                     try {
                         const fileContent = e.target.result;
                         const jsonData = JSON.parse(fileContent);
                         localStorage.setItem('events', JSON.stringify(jsonData));
-                        console.log('Backup imported successfully');
+                        consola.log('Backup imported successfully');
                         location.href = "/";
                     } catch (error) {
-                        console.error('Error parsing JSON:', error);
+                        consola.error('Error parsing JSON:', error);
                     }
                 };
-
-                // 读取文件
                 reader.readAsText(file);
             }
         },

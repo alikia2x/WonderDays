@@ -17,6 +17,43 @@ export default defineNuxtConfig({
     i18n: {
         vueI18n: "~/i18n/i18n.config.ts",
     },
+    pwa: {
+        registerType: "autoUpdate",
+        injectRegister: "auto",
+        workbox: {
+            globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        },
+        devOptions: {
+            enabled: true,
+        },
+        manifest: {
+            name: "WonderDays",
+            short_name: "WonderDays",
+            description:
+                "WonderDays: Your personal event countdown. Cherish moments with a simple, elegant countdown timer for life's significant milestones. Start anticipating your special days now!",
+            theme_color: "#ffffff",
+            icons: [
+                {
+                    src: "pwa-192x192.png",
+                    sizes: "192x192",
+                    type: "image/png",
+                },
+                {
+                    src: "pwa-512x512.png",
+                    sizes: "512x512",
+                    type: "image/png",
+                    purpose: "any",
+                },
+                {
+                    src: "/maskable-icon.png",
+                    sizes: "512x512",
+                    type: "image/png",
+                    purpose: "maskable",
+                },
+            ],
+            start_url: "",
+        },
+    },
     app: {
         head: {
             charset: "utf-8",
