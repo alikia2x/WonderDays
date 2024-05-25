@@ -1,6 +1,6 @@
 {
   "name": "wonderdays",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "private": false,
   "scripts": {
     "build": "nuxt build",
@@ -13,11 +13,7 @@
   "dependencies": {
     "@nuxt/ui": "^2.16.0",
     "colorjs.io": "^0.4.5",
-<<<<<<< HEAD
-    "fs-extra": "^11.2.0",
-=======
     "consola": "^3.2.3",
->>>>>>> pwa
     "moment": "^2.30.1",
     "nuxt": "^3.11.2",
     "nuxt-icons": "^3.2.1",
