@@ -1,8 +1,8 @@
 <template>
-    <div class="flex -translate-x-4 text-xl lg:text-3xl top-2 cursor-pointer">
+    <div class="flex items-center -translate-x-4 text-2xl lg:text-3xl top-2 cursor-pointer">
         <div tabindex="0" :aria-label="t('back')" @click="this.$router.go(-1)">
-            <Icon name="ion:chevron-back"></Icon>
-            <span class="relative text-2xl top-[1px]">{{ t('back') }}</span>
+            <Icon name="ion:chevron-back" class="inline-block align-middle"></Icon>
+            <span class="inline-block align-middle text-xl">{{ t('back') }}</span>
         </div>
     </div>
 </template>

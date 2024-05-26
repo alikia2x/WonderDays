@@ -1,7 +1,7 @@
 <template>
-    <div class="relative  text-xl lg:text-3xl self-center w-12 items-center overflow-hidden cursor-pointer">
-        <a tabindex="0" :aria-label="t('back')" :href="`/event/${props.eventId}/edit`">
-            <span class="relative text-xl">{{ t('edit') }}</span>
+    <div class="relative flex items-center justify-center text-xl lg:text-3xl cursor-pointer w-12 h-12">
+        <a tabindex="0" :aria-label="t('edit')" :href="`/event/${props.eventId}/edit`" class="flex items-center justify-center">
+            <span class="relative">{{ t('edit') }}</span>
         </a>
     </div>
 </template>
@@ -12,6 +12,7 @@ const props = defineProps<{
     eventId: string;
 }>();
 </script>
+
 
 <i18n lang="yaml">
 en:
