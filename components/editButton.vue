@@ -1,6 +1,6 @@
 <template>
     <div class="relative text-xl lg:text-3xl self-center cursor-auto items-center overflow-hidden text-blue-500">
-        <div class="h-12 w-20 flex justify-end translate-x-3 lg:-translate-x-0 items-center cursor-pointer">
+        <div class="h-12 w-20 flex justify-end items-center cursor-pointer">
             <a class="cursor-pointer" tabindex="0" :href="`/event/edit/${props.eventId}`">
                 <span class="relative text-lg flex justify-center">{{ t("edit") }}</span>
             </a>
