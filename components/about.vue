@@ -1,7 +1,7 @@
 <template>
     <p>
         <span>
-            WonderDays 1.5.0
+            WonderDays 1.6.0
         </span>
         <a class="font-bold dark:text-[#34FF7E] dark:hover:text-green-500 text-green-600 hover:text-green-700 duration-200"
             href="https://github.com/alikia2x/wonderdays">
@@ -16,9 +16,9 @@ const { t } = useI18n({ useScope: 'local' });
 
 <i18n lang="yaml">
 en:
-    sourceCode: 'Source Code'
+    sourceCode: "Source Code"
 zh-CN:
-    sourceCode: '源代码'
+    sourceCode: "源代码"
 ja:
-    sourceCode: 'ソースコード'
+    sourceCode: "ソースコード"
 </i18n>

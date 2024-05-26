@@ -1,8 +1,10 @@
 <template>
-    <div class="relative flex items-center justify-center text-xl lg:text-3xl cursor-pointer w-12 h-12">
-        <a tabindex="0" :aria-label="t('edit')" :href="`/event/${props.eventId}/edit`" class="flex items-center justify-center">
-            <span class="relative">{{ t('edit') }}</span>
-        </a>
+    <div class="relative text-xl lg:text-3xl self-center cursor-auto items-center overflow-hidden text-blue-500">
+        <div class="h-12 w-20 flex justify-end translate-x-3 lg:-translate-x-0 items-center cursor-pointer">
+            <a class="cursor-pointer" tabindex="0" :href="`/event/edit/${props.eventId}`">
+                <span class="relative text-lg flex justify-center">{{ t("edit") }}</span>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -16,9 +18,9 @@ const props = defineProps<{
 
 <i18n lang="yaml">
 en:
-    edit: 'Edit'
+    edit: Edit
 zh-CN:
-    edit: '编辑'
+    edit: 编辑
 ja:
-    edit: '編集'
+    edit: 編集
 </i18n>

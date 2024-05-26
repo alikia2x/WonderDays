@@ -56,9 +56,9 @@ onMounted(() => {
 
 <i18n lang="yaml">
 en:
-    defaultName: 'My Birthday'
+    defaultName: My Birthday
 zh-CN:
-    defaultName: '生日'
+    defaultName: 生日
 ja:
-    defaultName: '誕生日'
+    defaultName: 誕生日
 </i18n>

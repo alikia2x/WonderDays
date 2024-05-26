@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.icon path {
-    stroke: white;
-}
-
 @font-face {
     font-family: Comfortaa;
     src: url(../fonts/Comfortaa.ttf);
@@ -14,6 +10,16 @@
 @font-face {
     font-family: ddin;
     src: url(../fonts/D-DIN.otf);
+}
+
+@font-face {
+    font-family: Overpass;
+    src: url(../fonts/Overpass.ttf);
+}
+
+@font-face {
+    font-family: Inter;
+    src: url(../fonts/Inter.ttf);
 }
 
 .darkMo {

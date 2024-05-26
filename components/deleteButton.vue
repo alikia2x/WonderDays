@@ -1,6 +1,6 @@
 <template>
     <button tabindex="2" v-if="!confirmDelete" @click="confirmDelete = true"
-        class="border-2 border-black dark:border-white hover:bg-[#FF0000] hover:border-[#FF0000] dark:hover:border-[#FF0000] duration-200 px-4 py-2 rounded-md mt-4">
+        class="border-2 border-black dark:border-white hover:bg-[#FF0000] hover:border-[#FF0000] dark:hover:border-[#FF0000] hover:text-white duration-200 px-4 py-2 rounded-md mt-4">
         {{ t('delete') }}
     </button>
     <div role="listbox">
@@ -9,7 +9,7 @@
             {{ t('cancelDelete') }}
         </button>
         <button tabindex="2" role="option" v-if="confirmDelete" @click="deleteEvent"
-            class="ml-2 border-2 border-black dark:border-white hover:bg-[#FF0000] hover:border-[#FF0000] dark:hover:border-[#FF0000] duration-200 px-4 py-2 rounded-md mt-4">
+            class="ml-2 border-2 border-black dark:border-white hover:bg-[#FF0000] hover:border-[#FF0000] dark:hover:border-[#FF0000] hover:text-white duration-200 px-4 py-2 rounded-md mt-4">
             {{ t('deleteConfirm') }}
         </button>
     </div>
@@ -33,15 +33,15 @@ const deleteEvent = () => {
 
 <i18n lang="yaml">
 en:
-    delete: 'Remove Event'
-    deleteConfirm: 'Confirm to Remove'
-    cancelDelete: 'Cancel'
+    delete: Remove Event
+    deleteConfirm: Confirm to Remove
+    cancelDelete: Cancel
 zh-CN:
-    delete: '删除事件'
-    deleteConfirm: '确认删除'
-    cancelDelete: '取消删除'
+    delete: 删除事件
+    deleteConfirm: 确认删除
+    cancelDelete: 取消删除
 ja:
-    delete: '削除'
-    deleteConfirm: '本当に削除しますか？'
-    cancelDelete: 'キャンセル'
+    delete: 削除
+    deleteConfirm: 本当に削除しますか？
+    cancelDelete: キャンセル
 </i18n>

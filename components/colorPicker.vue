@@ -58,33 +58,33 @@ function setBorderColor(t: string) {
 
 <i18n lang="yaml">
 en:
-    bgColor: 'Background Color: '
-    borderColor: 'Border Color: '
-    blueBorder: 'Baby Blue'
-    redBorder: 'Frozen Salmon'
-    yellowBorder: 'Calamansi'
-    blueBg: 'Alice Blue'
-    redBg: 'Seashell'
-    yellowBg: 'Ivory'
-    colorChoose: 'Choose Color'
+    bgColor: "Background Color:"
+    borderColor: "Border Color:"
+    blueBorder: Baby Blue
+    redBorder: Frozen Salmon
+    yellowBorder: Calamansi
+    blueBg: Alice Blue
+    redBg: Seashell
+    yellowBg: Ivory
+    colorChoose: Choose Color
 zh-CN:
-    bgColor: '背景颜色：'
-    borderColor: '边框颜色：'
-    blueBorder: '天蓝'
-    redBorder: '西瓜红'
-    yellowBorder: '米黄'
-    blueBg: '爱丽丝蓝'
-    redBg: '浅红'
-    yellowBg: '象牙色'
-    colorChoose: '颜色选择'
+    bgColor: 背景颜色：
+    borderColor: 边框颜色：
+    blueBorder: 天蓝
+    redBorder: 西瓜红
+    yellowBorder: 米黄
+    blueBg: 爱丽丝蓝
+    redBg: 浅红
+    yellowBg: 象牙色
+    colorChoose: 颜色选择
 ja:
-    bgColor: '背景色：'
-    borderColor: 'ボーダーカラー：'
-    blueBorder: 'ベビーブルー'
-    redBorder: '冷凍サーモン'
-    yellowBorder: 'カラマンシー'
-    blueBg: 'アリスブルー'
-    redBg: 'シーシェル'
-    yellowBg: 'アイボリー'
-    colorChoose: 'カラー選択'
+    bgColor: 背景色：
+    borderColor: 枠の色：
+    blueBorder: ベビーブルー
+    redBorder: サーモン
+    yellowBorder: カラマンシー
+    blueBg: アリスブルー
+    redBg: シーシェル
+    yellowBg: アイボリー
+    colorChoose: 色を選択
 </i18n>

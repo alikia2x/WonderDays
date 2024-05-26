@@ -1,7 +1,6 @@
 export default defineNuxtConfig({
     devtools: {
         enabled: true,
-
         timeline: {
             enabled: true,
         },
@@ -22,9 +21,6 @@ export default defineNuxtConfig({
         injectRegister: "auto",
         workbox: {
             globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-        },
-        devOptions: {
-            enabled: true,
         },
         manifest: {
             name: "WonderDays",

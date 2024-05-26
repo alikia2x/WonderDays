@@ -103,21 +103,21 @@ const getColor = () => {
 
 <i18n lang="yaml">
 en:
-    later: "later"
-    ago: "ago"
-    day: 'day'
-    days: 'days'
-    space: ' '
+    later: later
+    ago: ago
+    day: day
+    days: days
+    space: " "
 zh-CN:
-    later: "后"
-    ago: "前"
-    day: '天'
-    days: '天'
-    space: ''
+    later: 后
+    ago: 前
+    day: 天
+    days: 天
+    space: ""
 ja:
-    later: "後で"
-    ago: "前"
-    day: '日'
-    days: '日'
-    space: ''
+    later: 後で
+    ago: 前
+    day: 日
+    days: 日
+    space: ""
 </i18n>

@@ -54,9 +54,9 @@ export default {
 </script>
 <i18n lang="yaml">
 en:
-    download: 'Download'
+    download: Download
 zh-CN:
-    download: '下载'
+    download: 下载
 ja:
-    download: 'ダウンロード'
+    download: ダウンロード
 </i18n>

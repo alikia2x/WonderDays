@@ -29,30 +29,30 @@ let dateString = moment().format(t('dateFormat'));
 
 <i18n lang="yaml">
 en:
-    today: "Today"
-    dateFormat: "MMM DD"
-    1event: "1 Event"
-    1eventweek: "1 Event in next seven days"
-    events: "Events"
-    noEvent: "No event today"
+    today: Today
+    dateFormat: MMM DD
+    1event: 1 Event
+    1eventweek: 1 Event in next seven days
+    events: Events
+    noEvent: No event today
     multiple: "Today's events: $td. Upcoming events in the next seven days: $wk."
-    titleFont: "sans-serif"
+    titleFont: sans-serif
 zh-CN:
-    today: "今天"
-    dateFormat: "M月D日"
-    1event: "1 个事件"
-    1eventweek: "7天内有 1 个事件"
-    events: "个事件"
-    noEvent: "今日无事件"
+    today: 今天
+    dateFormat: M月D日
+    1event: 1 个事件
+    1eventweek: 7天内有 1 个事件
+    events: 个事件
+    noEvent: 今日无事件
     multiple: "今天有 $td 个事件, 7天内共 $wk 个事件"
-    titleFont: "serif"
+    titleFont: serif
 ja:
-    today: "今日"
-    dateFormat: "M月D日"
-    1event: "1 イベント"
-    1eventweek: "次の7日間に1つのイベント"
-    events: "イベント"
-    noEvent: "今日のイベントはありません"
+    today: 今日
+    dateFormat: M月D日
+    1event: 1 イベント
+    1eventweek: 次の7日間に1つのイベント
+    events: イベント
+    noEvent: 今日のイベントはありません
     multiple: "今日のイベント: $td。次の7日間の予定: $wk。"
-    titleFont: "serif"
+    titleFont: serif
 </i18n>
