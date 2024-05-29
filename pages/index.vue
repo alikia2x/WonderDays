@@ -2,7 +2,7 @@
     <div>
         <Today :today="todayCount" :week="weekCount" />
         <Welcome v-if="!events || events.length === 0" />
-        <EventCard v-else v-for="event in events" :key="event.name" :event="event" />
+        <EventCard v-else v-for="event in events.sort((a, b) => getLatestRepeat(b).diff(getLatestRepeat(a)))" :key="event.name" :event="event" />
         <About/>
         <PreviewFooter/>
     </div>

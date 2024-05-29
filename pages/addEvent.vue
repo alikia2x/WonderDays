@@ -31,7 +31,7 @@
 
 
             <h2>{{ t('style') }}</h2>
-            <ColorPicker v-model:bgColor="formData.bgColor" v-model:borderColor="formData.borderColor" />
+            <ColorPicker v-model:background="formData.background" v-model:border="formData.border" />
             <div class="block relative h-24">
                 <h2>{{ t('repeat') }}</h2>
                 <label>
@@ -188,15 +188,27 @@ const rawUnit = ['day', 'week', 'month', 'year'];
 const unitList = ['day', 'week', 'month', 'year'].map((unit) => t(unit));
 const unitMap = new Map(unitList.map((unit, index) => [unit, rawUnit[index]]));
 
-const formData = ref({
+interface formData {
+    name: string
+    date: string
+    time?: string
+    background: string
+    border: string
+    repeatNum: number
+    repeatUnit: string
+}
+
+const initRef: formData = {
     name: '',
     date: moment().format("YYYY-MM-DD").toString(),
     time: undefined,
-    bgColor: 'blue',
-    borderColor: 'blue',
+    background: 'blue',
+    border: 'blue',
     repeatNum: 0,
     repeatUnit: '',
-});
+}
+
+const formData = ref(initRef);
 
 watch(formData.value, async (newData, oldData) => {
     if (!validate().valid) {
@@ -241,8 +253,8 @@ function addEvent() {
         repeat: "",
         reminder: [],
         sticker: [],
-        background: formData.value.bgColor,
-        border: formData.value.borderColor
+        background: formData.value.background,
+        border: formData.value.border
     }
 
     if (formData.value.time !== undefined) {
