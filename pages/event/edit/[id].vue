@@ -29,7 +29,7 @@
 
 
         <h2>{{ t('style') }}</h2>
-        <ColorPicker v-model:bgColor="formData.bgColor" v-model:borderColor="formData.borderColor" />
+        <ColorPicker v-model:background="formData.background" v-model:border="formData.border" />
         <div class="block relative h-24">
             <h2>{{ t('repeat') }}</h2>
             <label>
@@ -188,15 +188,27 @@ const unitList = ['day', 'week', 'month', 'year'].map((unit) => t(unit));
 const unitTolocale = new Map(rawUnit.map((unit, index) => [unit, unitList[index]]));
 const localeToUnit = new Map(unitList.map((unit, index) => [unit, rawUnit[index]]));
 
-const formData = ref({
+interface formData {
+    name: string
+    date: string
+    time?: string
+    background: string
+    border: string
+    repeatNum: number
+    repeatUnit: string
+}
+
+const initRef: formData = {
     name: '',
     date: moment().format("YYYY-MM-DD").toString(),
     time: undefined,
-    bgColor: 'blue',
-    borderColor: 'blue',
+    background: 'blue',
+    border: 'blue',
     repeatNum: 0,
     repeatUnit: '',
-});
+}
+
+const formData = ref(initRef);
 
 let event: CountdownEvent | null = null;
 if (localStorage['events'] !== undefined) {
@@ -207,19 +219,19 @@ if (localStorage['events'] !== undefined) {
 if (event !== null) {
     formData.value.name = event.name;
     formData.value.date = event.date;
-    formData.value.bgColor = event.background;
-    formData.value.borderColor = event.border;
-    if (event.repeat!==""){
+    formData.value.background = event.background;
+    formData.value.border = event.border;
+    if (event.repeat !== "") {
         const repeatInterval = event.repeat.split(",")[0];
         const repeatUnit = event.repeat.split(",")[1];
         formData.value.repeatNum = parseInt(repeatInterval);
         formData.value.repeatUnit = unitTolocale.get(repeatUnit)!;
     }
-    if (moment(event.date).creationData().format === 'YYYY-MM-DD') {
+    if (event.time !== undefined) {
         formData.value.date = moment(event.date).format('YYYY-MM-DD');
+        formData.value.time = event.time;
     } else {
         formData.value.date = moment(event.date).format('YYYY-MM-DD');
-        formData.value.time = moment(event.date).format('HH:mm');
     }
 }
 
@@ -251,31 +263,26 @@ function addEvent() {
         return;
     }
 
-    let savedDateString = "";
-    if (formData.value.time) {
-        savedDateString = formData.value.date + ' ' + formData.value.time;
-        savedDateString = moment(savedDateString).format("YYYY-MM-DD HH:mm:ss").toString();
-    }
-    else {
-        savedDateString = formData.value.date;
-        savedDateString = moment(savedDateString).format("YYYY-MM-DD").toString();
-    }
-
-    let newEvent = {
+    let newEvent: CountdownEvent = {
         name: formData.value.name,
         calendar: "gregorian",
-        date: savedDateString,
+        date: formData.value.date,
         repeat: "",
         reminder: [],
         sticker: [],
-        background: formData.value.bgColor,
-        border: formData.value.borderColor
+        background: formData.value.background,
+        border: formData.value.border
     }
+
+    if (formData.value.time !== undefined) {
+        newEvent.time = formData.value.time;
+    }
+
 
     if (formData.value.repeatNum > 0) {
         newEvent.repeat = formData.value.repeatNum.toString() + ',' + localeToUnit.get(formData.value.repeatUnit);
     }
-    
+
     const savedEvents = localStorage["events"];
     let newEvents: CountdownEvent[] = [];
 

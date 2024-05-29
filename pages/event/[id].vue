@@ -53,10 +53,10 @@ const event = getEvent(name).data as CountdownEvent;
 const nextDate = getLatestRepeat(event);
 const isRepeat = event.repeat != "";
 let rawDateString = "";
-if (moment(event.date).creationData().format === 'YYYY-MM-DD') {
-    rawDateString = moment(event.date).format('ll');
+if (event.time) {
+    rawDateString = moment(event.date + " " + event.time).format('lll');
 } else {
-    rawDateString = moment(event.date).format('lll');
+    rawDateString = moment(event.date).format('ll');
 }
 let repeatNumber: number | null = null;
 let repeatUnit: string | null = null;
@@ -71,10 +71,10 @@ const suffix = isFuture ? t('remain') : t('past');
 const relativeDays = isFuture ? Math.ceil(nextDate.diff(moment(), 'days', true)) : Math.ceil(moment().diff(nextDate, 'days', true));
 const relativeDaysSR = name + t('space') + suffix + t('daysSR').replaceAll('%d', relativeDays.toString());
 let nextDateString = "";
-if (nextDate && nextDate.creationData().format === 'YYYY-MM-DD') {
-    nextDateString = nextDate.format('ll');
+if (event.time) {
+    nextDateString = moment(event.date + " " + event.time).format('lll');
 } else {
-    nextDateString = nextDate.format('lll')
+    nextDateString = nextDate.format('ll');
 }
 
 function transformNumber(num: number): string {

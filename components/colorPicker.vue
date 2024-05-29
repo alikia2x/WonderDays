@@ -40,8 +40,8 @@
 </style>
 
 <script setup lang="ts">
-const bgColor = defineModel('bgColor');
-const borderColor = defineModel('borderColor');
+const bgColor = defineModel('background');
+const borderColor = defineModel('border');
 const bgPlaette = inject("backgroundPlaette");
 const borderPlaette = inject("borderPlaette");
 const darkMode = inject("darkMode");

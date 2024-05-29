@@ -234,25 +234,19 @@ function addEvent() {
         return;
     }
 
-    let savedDateString = "";
-    if (formData.value.time !== undefined) {
-        savedDateString = formData.value.date + ' ' + formData.value.time;
-        savedDateString = moment(savedDateString).format("YYYY-MM-DD HH:mm:ss").toString();
-    }
-    else {
-        savedDateString = formData.value.date;
-        savedDateString = moment(savedDateString).format("YYYY-MM-DD").toString();
-    }
-
-    let newEvent = {
+    let newEvent: CountdownEvent = {
         name: formData.value.name,
         calendar: "gregorian",
-        date: savedDateString,
+        date: formData.value.date,
         repeat: "",
         reminder: [],
         sticker: [],
         background: formData.value.bgColor,
         border: formData.value.borderColor
+    }
+
+    if (formData.value.time !== undefined) {
+        newEvent.time = formData.value.time;
     }
 
     if (formData.value.repeatNum > 0) {

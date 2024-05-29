@@ -14,7 +14,7 @@ export default function (e: CountdownEvent) {
             return fullDate;
         }
 
-        const maxIterations = 1000; // prevent infinite loop
+        const maxIterations = 100000; // prevent infinite loop
 
         for (let i = 0; i < maxIterations; i++) {
             if (fullDate >= moment()) {
@@ -27,6 +27,11 @@ export default function (e: CountdownEvent) {
                 case "month":
                     fullDate.month(fullDate.month() + parseInt(repeatInterval));
                     break;
+                case "week":
+                    fullDate.add(parseInt(repeatInterval), "weeks");
+                    break;
+                case "day":
+                    fullDate.add(parseInt(repeatInterval), "days");
                 default:
                     break;
             }

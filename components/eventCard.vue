@@ -85,10 +85,10 @@ const hasReminder = props.event.reminder.length != 0;
 const nextDate = getLatestRepeat(props.event);
 
 let nextDateString = "";
-if (nextDate && nextDate.creationData().format === 'YYYY-MM-DD') {
-    nextDateString = nextDate.format('ll');
+if (props.event.time) {
+    nextDateString = moment(props.event.date + " " + props.event.time).format('lll');
 } else {
-    nextDateString = nextDate.format('lll')
+    nextDateString = nextDate.format('ll');
 }
 const isFuture = nextDate.isAfter(moment());
 const { t } = useI18n({ useScope: 'local' });
