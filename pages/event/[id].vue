@@ -9,7 +9,7 @@
             </label>
             <div
                 class="absolute top-[calc(50%-8rem)] lg:top-44 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 h-fit w-full text-center">
-                <span class="relative text-9xl font-[Inter] font-thin" v-html="transformNumber(getCardDate(event))">
+                <span class="relative text-9xl font-[Inter] font-thin" v-html="remainDays">
                 </span>
                 <!-- Split Line -->
                 <div class="relative top-2 w-5/6 lg:w-1/2 max-w-96 lg:max-w-none left-1/2 
@@ -41,7 +41,9 @@
 </style>
 
 <script setup lang="ts">
+import consola from 'consola';
 import moment from 'moment';
+import { onUnmounted } from "vue";
 definePageMeta({ layout: 'detail-page' });
 const route = useRoute();
 const name = route.params.id as string;
@@ -52,12 +54,6 @@ const { t } = useI18n({ useScope: 'local' });
 const event = getEvent(name).data as CountdownEvent;
 const nextDate = getLatestRepeat(event);
 const isRepeat = event.repeat != "";
-let rawDateString = "";
-if (event.time) {
-    rawDateString = moment(event.date + " " + event.time).format('lll');
-} else {
-    rawDateString = moment(event.date).format('ll');
-}
 let repeatNumber: number | null = null;
 let repeatUnit: string | null = null;
 let repeatDisplay: string | null = null;
@@ -68,12 +64,19 @@ if (isRepeat) {
 }
 const isFuture = nextDate.isAfter(moment());
 const suffix = isFuture ? t('remain') : t('past');
-const relativeDays = isFuture ? Math.ceil(nextDate.diff(moment(), 'days', true)) : Math.ceil(moment().diff(nextDate, 'days', true));
-const relativeDaysSR = name + t('space') + suffix + t('daysSR').replaceAll('%d', relativeDays.toString());
+const remainDays = ref(transformNumber(getCardDate(event)));
+
+let relativeDays = isFuture ? Math.ceil(nextDate.diff(moment(), 'days', true)) : Math.ceil(moment().diff(nextDate, 'days', true));
+let relativeDaysSR = name + t('space') + suffix + t('daysSR').replaceAll('%d', relativeDays.toString());
+let rawDateString = "";
 let nextDateString = "";
+
+
 if (event.time) {
-    nextDateString = moment(event.date + " " + event.time).format('lll');
+    rawDateString = moment(event.date + " " + event.time).format('lll');
+    nextDateString = moment(nextDate.format("YYYY-MM-DD") + " " + event.time).format('lll');
 } else {
+    rawDateString = moment(event.date).format('ll');
     nextDateString = nextDate.format('ll');
 }
 
@@ -84,7 +87,14 @@ function transformNumber(num: number): string {
     return numStr;
 }
 
-const unit = relativeDays > 1 ? t('days') : t('day');
+let updateTimer = setInterval(() => {
+    remainDays.value = transformNumber(getCardDate(event));
+}, 1000);
+
+
+onUnmounted(() => {
+    clearInterval(updateTimer);
+})
 </script>
 
 <i18n lang="yaml">
