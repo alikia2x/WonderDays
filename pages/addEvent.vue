@@ -36,7 +36,7 @@ function validate() {
     if (formData.value.name.trim() === "") {
         return { valid: false, msg: t('emptyName'), id: 'name' }
     }
-    if (formData.value.name.indexOf('/') !== -1) {
+    if (!isValidURLcomponent(formData.value.name)) {
         return { valid: false, msg: t('invalidName'), id: 'name' }
     }
     for (let event of parsedEvents) {
@@ -90,10 +90,10 @@ zh-CN:
     nameExist: 该事件已存在
     emptyName: 请填写名称
     year: 年
-    invalidName: 无效名称
+    invalidName: "无效名称"
 ja:
     newEvent: 新しいイベント
     nameExist: 同じイベントが存在します
     emptyName: 名前が空白です
-    invalidName: 無効な名前
+    invalidName: "無効な名前"
 </i18n>

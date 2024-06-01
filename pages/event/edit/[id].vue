@@ -77,7 +77,7 @@ function validate() {
     if (storedEvents === undefined) {
         return { valid: true, msg: '', id: '' };
     }
-    if (formData.value.name.indexOf('/') !== -1) {
+    if (!isValidURLcomponent(formData.value.name)) {
         return { valid: false, msg: t('invalidName'), id: 'name' }
     }
     return { valid: true, msg: '', id: '' }
