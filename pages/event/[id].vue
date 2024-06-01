@@ -12,7 +12,7 @@
                 <span class="relative text-9xl font-[Inter] font-thin" v-html="remainDays">
                 </span>
                 <!-- Split Line -->
-                <div class="relative top-2 w-5/6 lg:w-1/2 max-w-96 lg:max-w-none left-1/2 
+                <div class="relative top-4 w-5/6 lg:w-1/2 max-w-96 lg:max-w-none left-1/2 
                 -translate-x-1/2 h-[0.125rem] bg-zinc-400 dark:bg-zinc-500" />
                 <p class="relative top-6">
                     <span class="text-xl">{{ name }}</span><br>
@@ -41,7 +41,6 @@
 </style>
 
 <script setup lang="ts">
-import consola from 'consola';
 import moment from 'moment';
 import { onUnmounted } from "vue";
 definePageMeta({ layout: 'detail-page' });
@@ -60,11 +59,11 @@ let repeatDisplay: string | null = null;
 if (isRepeat) {
     repeatNumber = parseInt(event.repeat.split(',')[0]);
     repeatUnit = event.repeat.split(',')[1];
-    repeatDisplay = moment.duration(repeatNumber,repeatUnit as any).humanize();
+    repeatDisplay = moment.duration(repeatNumber, repeatUnit as any).humanize();
 }
 const isFuture = nextDate.isAfter(moment());
 const suffix = isFuture ? t('remain') : t('past');
-const remainDays = ref(transformNumber(getCardDate(event)));
+const remainDays = ref(getDisplayDays());
 
 let relativeDays = isFuture ? Math.ceil(nextDate.diff(moment(), 'days', true)) : Math.ceil(moment().diff(nextDate, 'days', true));
 let relativeDaysSR = name + t('space') + suffix + t('daysSR').replaceAll('%d', relativeDays.toString());
@@ -87,8 +86,15 @@ function transformNumber(num: number): string {
     return numStr;
 }
 
+function getDisplayDays(): string{
+    if (getCardDate(event) === 0) {
+        return t('today');
+    }
+    return transformNumber(getCardDate(event));
+}
+
 let updateTimer = setInterval(() => {
-    remainDays.value = transformNumber(getCardDate(event));
+    remainDays.value = getDisplayDays();
 }, 1000);
 
 
@@ -112,6 +118,7 @@ en:
     back: Back
     repeat: "Repeat:"
     startFrom: "Start from %s"
+    today: Today
 zh-CN:
     later: 后
     ago: 前
@@ -128,6 +135,7 @@ zh-CN:
     back: 返回
     repeat: "重复: "
     startFrom: "始于 %s"
+    today: 今天
 ja:
     later: 後で
     ago: 前
@@ -144,4 +152,5 @@ ja:
     back: 戻る
     repeat: "繰り返し: "
     startFrom: "%s 開始"
+    today: 今日
 </i18n>

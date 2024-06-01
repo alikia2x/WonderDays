@@ -5,7 +5,7 @@ type CountdownEvent = {
     time?: string;
     repeat: string;
     reminder: string[];
-    sticker: string[];
+    sticker?: string[];
     background: string;
     border: string;
 };

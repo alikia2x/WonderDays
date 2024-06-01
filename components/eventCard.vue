@@ -1,7 +1,7 @@
 <template>
-    <NuxtLink :to="`/event/${event.name}`">
+    <NuxtLink :to="`/event/${encodeURI(event.name)}`">
         <div :style="{ background: getColor().background, border: getColor().border, borderWidth: '0.4rem', borderLeftStyle: 'solid' }"
-            class="darkMo min-h-28 mb-7 relative pl-4 pb-4 pt-1 rounded-r-lg">
+            class="darkMo min-h-28 mb-7 relative pl-4 py-4 rounded-r-lg">
             <h2 class="text-2xl font-bold leading-10 w-7/12"> {{ event.name }} </h2>
             <p class="text-gray-600 dark:text-gray-400">
                 {{ nextDateString }}
@@ -13,7 +13,7 @@
             </div>
             <!-- Relative time -->
             <div
-                class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed lg:1/5 xl:w-[18%] min-w-32 w-fit px-4 top-0 right-0">
+                class="absolute h-full border-[#3636365B] dark:border-[#C9C9C95B] border-l-2 border-dashed lg:1/5 xl:w-[18%] min-w-36 w-fit px-4 top-0 right-0">
                 <div class="relative text-center flex flex-col w-full top-1/2 translate-y-[-50%]">
                     <!-- Number part -->
                     <label>
