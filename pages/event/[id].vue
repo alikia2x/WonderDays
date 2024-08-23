@@ -3,12 +3,12 @@
         <EditButton class="cursor-pointer flex flex-1 justify-end items-end" :event-id="name" />
     </HeaderBar>
     <div>
-        <div class="relative h-screen">
+        <div class="relative min-h-screen">
             <label for="relativeTime">
                 <span tabindex="1" class="sr-only">{{ relativeDaysSR }}</span>
             </label>
             <div
-                class="absolute top-[calc(50%-8rem)] lg:top-44 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:translate-y-0 h-fit w-full text-center">
+                class="relative 2xst:top-8 xst:top-16 top-[calc(40vh-8rem)] left-1/2 -translate-x-1/2 h-fit w-full text-center">
                 <span class="relative text-9xl font-[Inter] font-thin" v-html="remainDays">
                 </span>
                 <!-- Split Line -->
@@ -22,6 +22,9 @@
                     <span>{{ t('repeat') }}{{ repeatDisplay }}</span>,
                     <span>{{ t('startFrom').replace('%s', `${rawDateString}`) }}</span>
                 </p>
+            </div>
+            <div class="relative top-[40vh]">
+                <UnitTimePill />
             </div>
         </div>
     </div>

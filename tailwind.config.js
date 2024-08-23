@@ -19,10 +19,10 @@ module.exports = {
                 12: "3rem",
             },
             screens: {
-                lmb: "400px", //Large mobile
-                mb: "368px", //Medium mobile
-                smb: "352px", //Small mobile
-                xsmb: "320px", //Extra small mobile
+                lmb: "400px", // Large mobile
+                mb: "368px", // Medium mobile
+                smb: "352px", // Small mobile
+                xsmb: "320px", // Extra small mobile
                 mh: { raw: "(max-height: 768px)" }, //Medium height
                 st: { raw: "(max-height: 576px)" }, //Short
                 xst: { raw: "(max-height: 512px)" }, //Extra Short
