@@ -1,4 +1,4 @@
-type formData = {
+export type EventFormData = {
     name: string
     date: string
     time?: string

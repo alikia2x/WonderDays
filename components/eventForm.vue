@@ -27,8 +27,8 @@
         </p>
 
 
-        <h2>{{ t('style') }}</h2>
-        <ColorPicker v-model:background="formData.background" v-model:border="formData.border" />
+        <!-- <h2>{{ t('style') }}</h2>
+        <ColorPicker v-model:background="formData.background" v-model:border="formData.border" /> -->
         <div class="block relative h-24">
             <h2>{{ t('repeat') }}</h2>
             <label>
@@ -50,17 +50,18 @@
 
 <script setup lang="ts">
 import Tag from '~/components/tag.vue';
+import { EventFormData } from '~/types/formData';
 
 const { t } = useI18n({ useScope: 'local' });
 const unitList = ['year', 'month', 'week', 'day'].map((unit) => t(unit));
 
 const props = defineProps<{
     loadData: Function,
-    validate: (data: formData) => { valid: boolean, msg: string, id: string },
-    submitForm: Function,
+    validate: (data: EventFormData) => { valid: boolean, msg: string, id: string },
+    submitForm: (payload: MouseEvent) => void,
     errInfo: string,
     setErrInfo: (msg: string) => void,
-    formData: formData,
+    formData: EventFormData,
 }>();
 
 props.loadData();

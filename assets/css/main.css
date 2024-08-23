@@ -26,3 +26,8 @@
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-duration: 0.3s;
 }
+
+body {
+    @apply bg-white dark:bg-black;
+    touch-action: pan-x pan-y;
+}

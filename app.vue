@@ -1,6 +1,12 @@
 <template>
+    <Teleport to="head">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta v-if="darkMode" name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta v-else name="apple-mobile-web-app-status-bar-style" content="white" />
+        <meta name="format-detection" content="telephone=no" />
+    </Teleport>
     <NuxtPwaManifest />
-    <div class="w-full h-fit dark:bg-zinc-950 dark:text-white darkMo">
+    <div class="w-full h-fit bg-white text-black dark:bg-black dark:text-white darkMo">
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>

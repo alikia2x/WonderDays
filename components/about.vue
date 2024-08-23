@@ -1,7 +1,7 @@
 <template>
     <p>
         <span>
-            WonderDays 1.6.5
+            WonderDays {{ getVersion() }}&nbsp;
         </span>
         <a class="font-bold dark:text-[#34FF7E] dark:hover:text-green-500 text-green-600 hover:text-green-700 duration-200"
             href="https://github.com/alikia2x/wonderdays">
@@ -11,6 +11,11 @@
 </template>
 
 <script setup lang="ts">
+import * as pjson from "~/package.json";
+
+function getVersion(){
+    return pjson.version;
+}
 const { t } = useI18n({ useScope: 'local' });
 </script>
 

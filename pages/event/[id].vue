@@ -9,7 +9,7 @@
             </label>
             <div
                 class="relative 2xst:top-8 xst:top-16 top-[calc(40vh-8rem)] left-1/2 -translate-x-1/2 h-fit w-full text-center">
-                <span class="relative text-9xl font-[Inter] font-thin" v-html="remainDays">
+                <span class="relative text-9xl font-[Inter] font-extralight" v-html="remainDays">
                 </span>
                 <!-- Split Line -->
                 <div class="relative top-4 w-5/6 lg:w-1/2 max-w-96 lg:max-w-none left-1/2 
@@ -23,9 +23,9 @@
                     <span>{{ t('startFrom').replace('%s', `${rawDateString}`) }}</span>
                 </p>
             </div>
-            <div class="relative top-[40vh]">
+            <!-- <div class="relative top-[40vh]">
                 <UnitTimePill />
-            </div>
+            </div> -->
         </div>
     </div>
 

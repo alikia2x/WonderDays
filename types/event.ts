@@ -1,4 +1,4 @@
-type CountdownEvent = {
+export type CountdownEvent = {
     name: string;
     calendar: string;
     date: string;

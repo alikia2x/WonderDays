@@ -1,5 +1,5 @@
 <template>
-    <div class="backdrop-blur-lg bg-[rgba(255,255,255,0.9)] dark:bg-[rgba(9,9,11,0.85)] fixed top-0 h-14 left-0 w-full z-50">
+    <div class="backdrop-blur-xl bg-[rgba(255,255,255,0.9)] dark:bg-[rgba(0,0,0,0.35)] backdrop-brightness-200 backdrop-saturate-150 fixed top-0 h-14 left-0 w-full z-50">
         <div class="relative top-0 h-14 pb-10 w-[calc(100%-4rem)] lg:mx-0 lg:w-3/4 xl:2/3 2xl:w-1/2 left-8 lg:left-[12.5%] xl:left-[16.666667%] 2xl:left-1/4
             ">
             <div class="flex pt-3">

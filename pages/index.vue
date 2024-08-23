@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import moment from "moment";
+import { CountdownEvent } from "~/types/event";
 
 const { t } = useI18n({ useScope: 'local' });
 const events = ref([] as CountdownEvent[]);

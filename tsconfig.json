@@ -1,8 +1,11 @@
 {
-    // https://nuxt.com/docs/guide/concepts/typescript
-    "extends": "./.nuxt/tsconfig.json",
-    "compilerOptions": {
-        "verbatimModuleSyntax": false,
-        "module": "ESNext"
-    }
+	// https://nuxt.com/docs/guide/concepts/typescript
+	"extends": "./.nuxt/tsconfig.json",
+	"compilerOptions": {
+		"verbatimModuleSyntax": false,
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2017", "DOM", "DOM.Iterable"],
+		"module": "ES2020"
+	}
 }

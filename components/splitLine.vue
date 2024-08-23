@@ -1,7 +1,7 @@
 <template>
     <div class="relative rounded-full" :style="{
         height: height / 16 + 'rem',
-        backgroundColor: inject('darkMode') ? darkColor : color,
+        backgroundColor: inject('darkMode').value ? darkColor : color,
         marginBottom: marginY / 16 + 'rem',
         marginTop: marginY / 16 + 'rem'
     }"></div>
