@@ -6,7 +6,7 @@
         <meta name="format-detection" content="telephone=no" />
     </Teleport>
     <NuxtPwaManifest />
-    <div class="w-full h-fit bg-white text-black dark:bg-black dark:text-white darkMo">
+    <div class="w-full h-fit bg-white text-black dark:bg-black dark:text-white darkMo overflow-x-hidden">
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>

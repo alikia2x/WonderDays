@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+import { CountdownEvent } from '~/types/event';
+
 const props = defineProps<{
     todayEvents: CountdownEvent[],
     events: CountdownEvent[]
